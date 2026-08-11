@@ -79,7 +79,7 @@ const translations = {
         aboutLi5: "Bilingual production support",
         readyStart: "READY TO START A PROJECT?",
         bookCall: "GET IN TOUCH!",
-        contactDesc: "Tell us about your project or your brand.... We'll reply within 24 hours to schedule a call or outline the next steps.",
+        contactDesc: "Tell us about your project or brand. We'll reply within 24 hours to schedule a call or outline the next steps.",
         emailLabel: "EMAIL",
         formName: "Name",
         formNamePh: "Your name",
@@ -130,7 +130,7 @@ const translations = {
         aboutLi5: "Soporte de producción bilingüe",
         readyStart: "¡LISTO PARA INICIAR UN PROYECTO?",
         bookCall: "¡PONTE EN CONTACTO!",
-        contactDesc: "Cuéntanos qué estás construyendo. Te responderemos en un plazo de 24 horas para programar una llamada o definir los próximos pasos.",
+        contactDesc: "Cuéntanos sobre tu proyecto o marca. Te responderemos en un plazo de 24 horas para programar una llamada o definir los próximos pasos.",
         emailLabel: "CORREO ELECTRÓNICO",
         formName: "Nombre",
         formNamePh: "Tu nombre",
@@ -141,7 +141,7 @@ const translations = {
         formLocationPh: "Ciudad, Estado",
         formMessage: "Mensaje",
         formMessagePh: "Cuéntanos sobre tu proyecto... e incluye un número telefónico de contacto",
-        sendMsg: "CONTÁCTANOS.",
+        sendMsg: "CONTÁCTANOS",
         newsletterEyebrow: "¿QUIERES MANTENERTE AL DÍA?",
         newsletterTitle: "RECIBE NUEVOS TRABAJOS EN TU CORREO",
         newsletterDesc: "TE MANTENEMOS AL DÍA, REELS, BTS Y NOTICIAS!.",
@@ -454,6 +454,22 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="text-sm text-muted-foreground mt-1">2023</p>
 </div>
 </div>
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/qJFCCenK7xg" 
+    title="Branding Tentant®" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Branding Tentant®</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -506,12 +522,21 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </div>
 <p class="max-w-md text-sm text-muted-foreground" data-i18n="postDesc">Editing, color grading, sound design, and final delivery.</p>
 </div>
-<div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
-<span class="font-display text-5xl text-foreground/15">5</span>
-<div>
-<h3 class="font-display text-2xl text-foreground">Night Grade</h3>
-<div class="mt-2 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground"><span>Post-Production</span><span class="h-px w-4 bg-muted-foreground/40"></span><span>2024</span></div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/EGUC1EOu0lU" 
+    title="Cinematic Drone Top Down / CruiseShip Chase" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Cinematic Drone Top Down / CruiseShip Chase</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
 </div>
@@ -574,7 +599,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </div>
 <div class="relative flex aspect-square items-center justify-center rounded-3xl border border-border bg-secondary/20 p-8">
 <div class="w-full h-full max-w-sm flex items-center justify-center">
-<img src="KILL BILL SKY3 copy.jpg" alt="SKYRDY Graphic" class="w-full h-full object-contain rounded-2xl" />
+<img src="Colored%20Logo.png" alt="SKYRDY Logo" class="w-full h-full object-contain" />
 </div>
 </div>
 </div>
@@ -637,7 +662,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </div>
 
 <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 py-4 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90" data-i18n="sendMsg">
-REACH OUT TO US.
+REACH OUT TO US
 </button>
 </form>
 </div>
@@ -656,7 +681,7 @@ REACH OUT TO US.
 <input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
 <input type="hidden" name="subject" value="Newsletter signup from skyrdy.com">
 <label for="newsletterEmail" class="sr-only">Email</label>
-<input id="newsletterEmail" type="email" name="email" class="w-full flex-1 rounded-full border border-input bg-background px-5 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@email.com" data-i18n-placeholder="newsletterPh" required />
+<input id="newsletterEmail" type="email" name="email" class="w-full flex-1 rounded-xl border border-input bg-background px-5 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@email.com" data-i18n-placeholder="newsletterPh" required />
 <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90 whitespace-nowrap" data-i18n="newsletterBtn">
 SUBSCRIBE
 </button>
