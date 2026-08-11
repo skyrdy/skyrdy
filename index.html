@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700;900&amp;display=swap" data-precedence="default"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700;900&amp;display=swap" data-precedence="default"/>
 <title>SKYRDY™ — Drone Video + Motion Lab</title>
 <meta name="author" content="SKYRDY"/>
 <meta property="og:site_name" content="SKYRDY"/>
@@ -30,7 +30,6 @@ tailwind.config = {
             },
             fontFamily: {
                 display: ['"Bebas Neue"', 'sans-serif'],
-                hero: ['"Anton"', 'sans-serif'],
                 sans: ['Inter', 'sans-serif']
             },
             keyframes: {
@@ -80,19 +79,17 @@ const translations = {
         aboutLi5: "Bilingual production support",
         readyStart: "READY TO START A PROJECT?",
         bookCall: "GET IN TOUCH!",
-        contactDesc: "Tell us about your project or brand...",
+        contactDesc: "Tell us about your project or brand. We'll reply within 24 hours to schedule a call or outline the next steps.",
         emailLabel: "EMAIL",
         formName: "Name",
         formNamePh: "Your name",
         formEmail: "Email",
-        formPhone: "Phone",
-        formPhonePh: "+1 (555) 123-4567",
         formService: "Service",
         formSelectService: "Select a service",
         formLocation: "Location",
         formLocationPh: "City, State",
         formMessage: "Message",
-        formMessagePh: "Tell us more about your project or brand...",
+        formMessagePh: "Tell us about your project...and please include a working reaching phone number",
         sendMsg: "REACH OUT TO US",
         newsletterEyebrow: "WANNA STAY IN THE LOOP ?",
         newsletterTitle: "GET NEW WORK IN YOUR INBOX",
@@ -133,19 +130,17 @@ const translations = {
         aboutLi5: "Soporte de producción bilingüe",
         readyStart: "¡LISTO PARA INICIAR UN PROYECTO?",
         bookCall: "¡PONTE EN CONTACTO!",
-        contactDesc: "Cuéntanos sobre tu proyecto o marca...",
+        contactDesc: "Cuéntanos sobre tu proyecto o marca. Te responderemos en un plazo de 24 horas para programar una llamada o definir los próximos pasos.",
         emailLabel: "CORREO ELECTRÓNICO",
         formName: "Nombre",
         formNamePh: "Tu nombre",
         formEmail: "Correo electrónico",
-        formPhone: "Teléfono",
-        formPhonePh: "+52 (555) 123-4567",
         formService: "Servicio",
         formSelectService: "Selecciona un servicio",
         formLocation: "Ubicación",
         formLocationPh: "Ciudad, Estado",
         formMessage: "Mensaje",
-        formMessagePh: "Cuéntanos más sobre tu proyecto o marca...",
+        formMessagePh: "Cuéntanos sobre tu proyecto... e incluye un número telefónico de contacto",
         sendMsg: "CONTÁCTANOS",
         newsletterEyebrow: "¿QUIERES MANTENERTE AL DÍA?",
         newsletterTitle: "RECIBE NUEVOS TRABAJOS EN TU CORREO",
@@ -259,10 +254,10 @@ function closeMobileMenu() {
 <div class="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:radial-gradient(circle_at_center,var(--foreground)_1px,transparent_1px)] [background-size:24px_24px]"></div>
 <div class="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center text-center">
 <div class="w-full max-w-5xl">
-<h1 class="font-hero text-6xl sm:text-8xl tracking-wider text-foreground flex items-center justify-center">
-SKYRDY<span class="self-start -translate-y-2 sm:-translate-y-4 text-3xl sm:text-5xl ml-1 font-hero text-[#7A1F2B]">X</span>
+<h1 class="font-display text-6xl sm:text-8xl tracking-wider text-foreground flex items-center justify-center">
+SKYRDY<span class="self-start -translate-y-2 sm:-translate-y-4 text-3xl sm:text-5xl ml-1 font-sans font-black text-[#7A1F2B]">X</span>
 </h1>
-<p class="mt-2 font-hero text-2xl sm:text-4xl md:text-5xl tracking-[0.25em] text-foreground" data-i18n="heroSubtitle">VISUAL RESEARCH LABS</p>
+<p class="mt-2 font-display text-2xl sm:text-4xl md:text-5xl tracking-[0.25em] text-foreground font-bold" data-i18n="heroSubtitle">VISUAL RESEARCH LABS</p>
 </div>
 <p class="mt-6 text-xs sm:text-sm uppercase tracking-[0.2em] text-muted-foreground font-semibold" data-i18n="heroDesc">
 WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
@@ -390,22 +385,6 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="text-sm text-muted-foreground mt-1">2024</p>
 </div>
 </div>
-<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
-<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe 
-    class="h-full w-full border-0"
-    src="https://www.youtube-nocookie.com/embed/YmeDebNWPxk" 
-    title="Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX" 
-    referrerpolicy="strict-origin-when-cross-origin"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-</div>
-<div class="mt-4">
-<h3 class="font-display text-2xl text-foreground">Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX</h3>
-<p class="text-sm text-muted-foreground mt-1">2020</p>
-</div>
-</div>
 </div>
 </div>
 </section>
@@ -437,20 +416,11 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
-<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe 
-    class="h-full w-full border-0"
-    src="https://www.youtube-nocookie.com/embed/bCvhn3rff1I" 
-    title="Silvered Logo Intro For Lattice® Beauty Brands" 
-    referrerpolicy="strict-origin-when-cross-origin"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-</div>
-<div class="mt-4">
-<h3 class="font-display text-2xl text-foreground">Silvered Logo Intro For Lattice® Beauty Brands</h3>
-<p class="text-sm text-muted-foreground mt-1">2025</p>
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
+<span class="font-display text-5xl text-foreground/15">2</span>
+<div>
+<h3 class="font-display text-2xl text-foreground">Festival Opener</h3>
+<div class="mt-2 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground"><span>Motion Design</span><span class="h-px w-4 bg-muted-foreground/40"></span><span>2024</span></div>
 </div>
 </div>
 </div>
@@ -531,20 +501,11 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="text-sm text-muted-foreground mt-1">2023</p>
 </div>
 </div>
-<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
-<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe 
-    class="h-full w-full border-0"
-    src="https://www.youtube-nocookie.com/embed/ZEZff4cU-58" 
-    title="WE LOVE LA PAZ SUNSETS AND LANDSCAPES" 
-    referrerpolicy="strict-origin-when-cross-origin"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-</div>
-<div class="mt-4">
-<h3 class="font-display text-2xl text-foreground">WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤</h3>
-<p class="text-sm text-muted-foreground mt-1">2025</p>
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
+<span class="font-display text-5xl text-foreground/15">4</span>
+<div>
+<h3 class="font-display text-2xl text-foreground">Desert Short</h3>
+<div class="mt-2 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground"><span>Film</span><span class="h-px w-4 bg-muted-foreground/40"></span><span>2023</span></div>
 </div>
 </div>
 </div>
@@ -578,22 +539,6 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
-<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe 
-    class="h-full w-full border-0"
-    src="https://www.youtube-nocookie.com/embed/HlD-ugXKieo" 
-    title="Dronework For A Local Company In Tijuana" 
-    referrerpolicy="strict-origin-when-cross-origin"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-</div>
-<div class="mt-4">
-<h3 class="font-display text-2xl text-foreground">Dronework For A Local Company In Tijuana</h3>
-<p class="text-sm text-muted-foreground mt-1">2025</p>
-</div>
-</div>
 </div>
 </div>
 </section>
@@ -608,37 +553,12 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </div>
 <p class="max-w-md text-sm text-muted-foreground" data-i18n="researchDesc">Deep-dive creative exploration, moodboards, and conceptual testing.</p>
 </div>
-<div class="grid gap-8 md:grid-cols-2">
-<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
-<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe 
-    class="h-full w-full border-0"
-    src="https://www.youtube-nocookie.com/embed/kzH9lbCw2y8" 
-    title="Trending" 
-    referrerpolicy="strict-origin-when-cross-origin"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-</div>
-<div class="mt-4">
-<h3 class="font-display text-2xl text-foreground">Trending</h3>
-<p class="text-sm text-muted-foreground mt-1">2025</p>
-</div>
-</div>
-<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
-<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe 
-    class="h-full w-full border-0"
-    src="https://www.youtube-nocookie.com/embed/tKMjmkNGB3Q" 
-    title="Concept Burger Ad For Social Media Made With AE" 
-    referrerpolicy="strict-origin-when-cross-origin"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
-</div>
-<div class="mt-4">
-<h3 class="font-display text-2xl text-foreground">Concept Burger Ad For Social Media Made With AE</h3>
-<p class="text-sm text-muted-foreground mt-1">2025</p>
+<div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
+<span class="font-display text-5xl text-foreground/15">6</span>
+<div>
+<h3 class="font-display text-2xl text-foreground">Sierra Scout</h3>
+<div class="mt-2 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground"><span>Visual Research</span><span class="h-px w-4 bg-muted-foreground/40"></span><span>2023</span></div>
 </div>
 </div>
 </div>
@@ -695,7 +615,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </div>
 <div class="grid gap-12 lg:grid-cols-2">
 <div>
-<p class="text-lg leading-relaxed text-muted-foreground" data-i18n="contactDesc">Tell us about your project or brand...</p>
+<p class="text-lg leading-relaxed text-muted-foreground" data-i18n="contactDesc">Tell us about your project or brand. We'll reply within 24 hours to schedule a call or outline the next steps.</p>
 <div class="mt-8">
 <span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="emailLabel">EMAIL</span>
 <a href="mailto:skyrdymx@gmail.com" class="mt-2 block text-xl text-foreground transition-colors hover:text-accent">skyrdymx@gmail.com</a>
@@ -706,7 +626,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
 <input type="hidden" name="subject" value="New Inquiry from skyrdy.com">
 
-<div class="grid gap-6 sm:grid-cols-3">
+<div class="grid gap-6 sm:grid-cols-2">
 <div>
 <label for="name" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formName">Name</label>
 <input id="name" name="name" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Your name" data-i18n-placeholder="formNamePh" required />
@@ -714,10 +634,6 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <div>
 <label for="email" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formEmail">Email</label>
 <input id="email" type="email" name="email" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@company.com" required />
-</div>
-<div>
-<label for="phone" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formPhone">Phone</label>
-<input id="phone" type="tel" name="phone" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="+1 (555) 123-4567" data-i18n-placeholder="formPhonePh" pattern="[0-9+\-\s()]{7,20}" title="Enter a valid phone number (digits only, 7-20 characters)" inputmode="tel" required />
 </div>
 </div>
 
@@ -742,7 +658,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 
 <div>
 <label for="message" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formMessage">Message</label>
-<textarea id="message" name="message" rows="5" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Tell us more about your project or brand..." data-i18n-placeholder="formMessagePh" required></textarea>
+<textarea id="message" name="message" rows="5" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Tell us about your project...and please include a working reaching phone number" data-i18n-placeholder="formMessagePh" required></textarea>
 </div>
 
 <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 py-4 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90" data-i18n="sendMsg">
