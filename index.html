@@ -24,7 +24,7 @@ tailwind.config = {
                 'muted-foreground': '#a3a3a3',
                 input: '#262626',
                 secondary: '#1f1f1f',
-                accent: '#575ECF',
+                accent: '#54A5B1',
                 border: '#262626',
                 card: '#121212'
             },
@@ -78,19 +78,24 @@ const translations = {
         aboutLi4: "Fast turnaround for social content",
         aboutLi5: "Bilingual production support",
         readyStart: "READY TO START A PROJECT?",
-        bookCall: "BOOK A CALL",
-        contactDesc: "Tell us what you're building. We'll reply within 24 hours to schedule a call or map out your next steps.",
+        bookCall: "GET IN TOUCH!",
+        contactDesc: "Tell us what you're building. We'll reply within 24 hours to schedule a call or outline the next steps.",
         emailLabel: "EMAIL",
         formName: "Name",
         formNamePh: "Your name",
         formEmail: "Email",
         formService: "Service",
         formSelectService: "Select a service",
-        formBudget: "Budget range",
-        formSelectOne: "Select one",
+        formLocation: "Location",
+        formLocationPh: "City, State",
         formMessage: "Message",
         formMessagePh: "Tell us about your project...and please include a working reaching phone number",
-        sendMsg: "REACH OUT TO US!",
+        sendMsg: "REACH OUT TO US.",
+        newsletterEyebrow: "WANNA STAY IN THE LOOP ?",
+        newsletterTitle: "GET NEW WORK IN YOUR INBOX",
+        newsletterDesc: "LETS KEEP YOU UPDATED, REELS, BTS AND NEWS!.",
+        newsletterPh: "you@email.com",
+        newsletterBtn: "SUBSCRIBE",
         footerRights: "All rights reserved.",
         footerSub: "Drone Video + Motion Lab"
     },
@@ -124,19 +129,24 @@ const translations = {
         aboutLi4: "Entrega rápida para contenido en redes",
         aboutLi5: "Soporte de producción bilingüe",
         readyStart: "¡LISTO PARA INICIAR UN PROYECTO?",
-        bookCall: "AGENDAR LLAMADA",
-        contactDesc: "Cuéntanos qué estás construyendo. Te responderemos en un plazo de 24 horas para programar una llamada.",
+        bookCall: "¡PONTE EN CONTACTO!",
+        contactDesc: "Cuéntanos qué estás construyendo. Te responderemos en un plazo de 24 horas para programar una llamada o definir los próximos pasos.",
         emailLabel: "CORREO ELECTRÓNICO",
         formName: "Nombre",
         formNamePh: "Tu nombre",
         formEmail: "Correo electrónico",
         formService: "Servicio",
         formSelectService: "Selecciona un servicio",
-        formBudget: "Rango de presupuesto",
-        formSelectOne: "Selecciona uno",
+        formLocation: "Ubicación",
+        formLocationPh: "Ciudad, Estado",
         formMessage: "Mensaje",
         formMessagePh: "Cuéntanos sobre tu proyecto... e incluye un número telefónico de contacto",
-        sendMsg: "¡CONTÁCTANOS!",
+        sendMsg: "CONTÁCTANOS.",
+        newsletterEyebrow: "¿QUIERES MANTENERTE AL DÍA?",
+        newsletterTitle: "RECIBE NUEVOS TRABAJOS EN TU CORREO",
+        newsletterDesc: "TE MANTENEMOS AL DÍA, REELS, BTS Y NOTICIAS!.",
+        newsletterPh: "tu@correo.com",
+        newsletterBtn: "SUSCRIBIRSE",
         footerRights: "Todos los derechos reservados.",
         footerSub: "Laboratorio de Video con Drones y Movimiento"
     }
@@ -187,10 +197,10 @@ function toggleLanguage() {
 <a href="#about" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navAbout">About</a>
 <a href="#contact" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navContact">Contact</a>
 
-<button onclick="toggleLanguage()" class="flex items-center gap-1 rounded-sm border border-border px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-foreground hover:bg-secondary transition-colors">
+<button onclick="toggleLanguage()" class="flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-foreground hover:bg-secondary transition-colors">
     🌐 <span id="langToggleText">ES</span>
 </button>
-<a href="#contact" class="rounded-sm border border-foreground/30 px-4 py-2 text-sm font-medium uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background" data-i18n="navBook">Book a call</a>
+<a href="#contact" class="rounded-full border border-foreground/30 px-4 py-2 text-sm font-medium uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background" data-i18n="navBook">Book a call</a>
 </nav>
 </div>
 </header>
@@ -202,7 +212,7 @@ function toggleLanguage() {
 <div class="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center text-center">
 <div class="w-full max-w-5xl">
 <h1 class="font-display text-6xl sm:text-8xl tracking-wider text-foreground flex items-center justify-center">
-SKYRDY<span class="text-3xl sm:text-5xl ml-1 font-sans font-black text-accent">X</span>
+SKYRDY<span class="self-start -translate-y-2 sm:-translate-y-4 text-3xl sm:text-5xl ml-1 font-sans font-black text-[#7A1F2B]">X</span>
 </h1>
 <p class="mt-2 font-display text-2xl sm:text-4xl md:text-5xl tracking-[0.25em] text-foreground font-bold" data-i18n="heroSubtitle">VISUAL RESEARCH LABS</p>
 </div>
@@ -226,8 +236,8 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </div>
 
 <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-<a href="#contact" class="inline-flex items-center gap-2 rounded-sm bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-all hover:bg-foreground/90" data-i18n="navBook">Book a call</a>
-<a href="#services" class="inline-flex items-center gap-2 rounded-sm border border-foreground/30 px-6 py-3 text-sm font-black uppercase tracking-widest text-foreground transition-all hover:bg-foreground/10" data-i18n="portfolioBtn">PORTFOLIO</a>
+<a href="#contact" class="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-all hover:bg-foreground/90" data-i18n="navBook">Book a call</a>
+<a href="#services" class="inline-flex items-center gap-2 rounded-full border border-foreground/30 px-6 py-3 text-sm font-black uppercase tracking-widest text-foreground transition-all hover:bg-foreground/10" data-i18n="portfolioBtn">PORTFOLIO</a>
 </div>
 
 <div class="mt-16 text-center">
@@ -240,20 +250,20 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <div class="relative w-full overflow-hidden border-t border-border py-4 bg-background">
 <div class="flex w-max animate-marquee whitespace-nowrap">
 <div class="flex items-center gap-8 px-4">
-<a href="#motion-design" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Motion Design</a>
-<a href="#visual-research" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Visual Research</a>
-<a href="#droneworks" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Droneworks</a>
-<a href="#branding" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Branding</a>
-<a href="#film" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Film</a>
-<a href="#post-production" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Post-Production</a>
+<a href="#motion-design" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Motion Design</a>
+<a href="#visual-research" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Visual Research</a>
+<a href="#droneworks" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Droneworks</a>
+<a href="#branding" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Branding</a>
+<a href="#film" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Film</a>
+<a href="#post-production" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Post-Production</a>
 </div>
 <div class="flex items-center gap-8 px-4" aria-hidden="true">
-<a href="#motion-design" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Motion Design</a>
-<a href="#visual-research" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Visual Research</a>
-<a href="#droneworks" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Droneworks</a>
-<a href="#branding" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Branding</a>
-<a href="#film" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Film</a>
-<a href="#post-production" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-sm bg-secondary/30">Post-Production</a>
+<a href="#motion-design" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Motion Design</a>
+<a href="#visual-research" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Visual Research</a>
+<a href="#droneworks" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Droneworks</a>
+<a href="#branding" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Branding</a>
+<a href="#film" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Film</a>
+<a href="#post-production" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Post-Production</a>
 </div>
 </div>
 </div>
@@ -271,32 +281,32 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </div>
 
 <div class="divide-y divide-border border-t border-border">
-<a href="#post-production" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-sm">
+<a href="#post-production" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
 <span class="font-display text-3xl text-muted-foreground group-hover:text-accent">01</span>
 <h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Post-Production</h3>
 <p class="text-sm leading-relaxed text-muted-foreground sm:text-base">Editing, color grading, sound design, and final delivery tailored for any screen format. <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
 </a>
-<a href="#motion-design" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-sm">
+<a href="#motion-design" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
 <span class="font-display text-3xl text-muted-foreground group-hover:text-accent">02</span>
 <h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Motion Design</h3>
 <p class="text-sm leading-relaxed text-muted-foreground sm:text-base">Animated graphics, dynamic titles, and kinetic visual identities that move with your story. <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
 </a>
-<a href="#visual-research" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-sm">
+<a href="#visual-research" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
 <span class="font-display text-3xl text-muted-foreground group-hover:text-accent">03</span>
 <h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Visual Research</h3>
 <p class="text-sm leading-relaxed text-muted-foreground sm:text-base">Deep-dive creative exploration, moodboards, and conceptual testing to align your vision. <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
 </a>
-<a href="#droneworks" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-sm">
+<a href="#droneworks" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
 <span class="font-display text-3xl text-muted-foreground group-hover:text-accent">04</span>
 <h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Droneworks</h3>
 <p class="text-sm leading-relaxed text-muted-foreground sm:text-base">Licensed aerial cinematography capturing striking perspectives for landscapes, events, and architecture. <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
 </a>
-<a href="#branding" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-sm">
+<a href="#branding" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
 <span class="font-display text-3xl text-muted-foreground group-hover:text-accent">05</span>
 <h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Branding</h3>
 <p class="text-sm leading-relaxed text-muted-foreground sm:text-base">Comprehensive brand identity systems, logo architecture, and digital assets that stand out. <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
 </a>
-<a href="#film" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-sm">
+<a href="#film" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
 <span class="font-display text-3xl text-muted-foreground group-hover:text-accent">06</span>
 <h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Film</h3>
 <p class="text-sm leading-relaxed text-muted-foreground sm:text-base">Cinematic production from script-to-screen, commercial narratives, and visual showcases. <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
@@ -316,7 +326,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="max-w-md text-sm text-muted-foreground" data-i18n="droneworksDesc">Licensed aerial cinematography capturing striking perspectives.</p>
 </div>
 <div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between border border-border">
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
 <span class="font-display text-5xl text-foreground/15">1</span>
 <div>
 <h3 class="font-display text-2xl text-foreground">Coastal Reel</h3>
@@ -338,8 +348,8 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="max-w-md text-sm text-muted-foreground" data-i18n="motionDesc">Animated graphics, dynamic titles, and kinetic visual identities.</p>
 </div>
 <div class="grid gap-8 md:grid-cols-2">
-<div class="group border border-border bg-card p-4 transition-all hover:border-accent">
-<div class="aspect-video w-full overflow-hidden bg-black">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0"
     src="https://www.youtube-nocookie.com/embed/NAV2HUMH25k" 
@@ -354,7 +364,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between border border-border">
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
 <span class="font-display text-5xl text-foreground/15">2</span>
 <div>
 <h3 class="font-display text-2xl text-foreground">Festival Opener</h3>
@@ -376,7 +386,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="max-w-md text-sm text-muted-foreground" data-i18n="brandingDesc">Comprehensive brand identity systems and logo architecture.</p>
 </div>
 <div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between border border-border">
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
 <span class="font-display text-5xl text-foreground/15">3</span>
 <div>
 <h3 class="font-display text-2xl text-foreground">Brand Lift</h3>
@@ -398,8 +408,8 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="max-w-md text-sm text-muted-foreground" data-i18n="filmDesc">Cinematic production from script-to-screen.</p>
 </div>
 <div class="grid gap-8 md:grid-cols-2">
-<div class="group border border-border bg-card p-4 transition-all hover:border-accent">
-<div class="aspect-video w-full overflow-hidden bg-black">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0"
     src="https://www.youtube-nocookie.com/embed/M-xMs__8t90" 
@@ -414,7 +424,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="text-sm text-muted-foreground mt-1">2023</p>
 </div>
 </div>
-<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between border border-border">
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
 <span class="font-display text-5xl text-foreground/15">4</span>
 <div>
 <h3 class="font-display text-2xl text-foreground">Desert Short</h3>
@@ -436,7 +446,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="max-w-md text-sm text-muted-foreground" data-i18n="postDesc">Editing, color grading, sound design, and final delivery.</p>
 </div>
 <div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between border border-border">
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
 <span class="font-display text-5xl text-foreground/15">5</span>
 <div>
 <h3 class="font-display text-2xl text-foreground">Night Grade</h3>
@@ -458,7 +468,7 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <p class="max-w-md text-sm text-muted-foreground" data-i18n="researchDesc">Deep-dive creative exploration, moodboards, and conceptual testing.</p>
 </div>
 <div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between border border-border">
+<div class="group relative aspect-[4/5] bg-background p-6 text-left transition-colors hover:bg-secondary/40 flex flex-col justify-between rounded-2xl border border-border">
 <span class="font-display text-5xl text-foreground/15">6</span>
 <div>
 <h3 class="font-display text-2xl text-foreground">Sierra Scout</h3>
@@ -501,9 +511,9 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </li>
 </ul>
 </div>
-<div class="relative flex aspect-square items-center justify-center rounded-sm border border-border bg-secondary/20 p-8">
+<div class="relative flex aspect-square items-center justify-center rounded-3xl border border-border bg-secondary/20 p-8">
 <div class="w-full h-full max-w-sm flex items-center justify-center">
-<img src="KILL BILL SKY3 copy.jpg" alt="SKYRDY Graphic" class="w-full h-full object-contain rounded-sm" />
+<img src="KILL BILL SKY3 copy.jpg" alt="SKYRDY Graphic" class="w-full h-full object-contain rounded-2xl" />
 </div>
 </div>
 </div>
@@ -515,17 +525,17 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <div class="mx-auto max-w-7xl">
 <div class="mb-12 border-b border-border pb-6">
 <span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="readyStart">READY TO START A PROJECT?</span>
-<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="bookCall">BOOK A CALL</h2>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="bookCall">GET IN TOUCH!</h2>
 </div>
 <div class="grid gap-12 lg:grid-cols-2">
 <div>
-<p class="text-lg leading-relaxed text-muted-foreground" data-i18n="contactDesc">Tell us what you're building. We'll reply within 24 hours to schedule a call or map out your next steps.</p>
+<p class="text-lg leading-relaxed text-muted-foreground" data-i18n="contactDesc">Tell us what you're building. We'll reply within 24 hours to schedule a call or outline the next steps.</p>
 <div class="mt-8">
 <span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="emailLabel">EMAIL</span>
 <a href="mailto:skyrdymx@gmail.com" class="mt-2 block text-xl text-foreground transition-colors hover:text-accent">skyrdymx@gmail.com</a>
 </div>
 </div>
-<div class="rounded-sm border border-border bg-card p-6 sm:p-8">
+<div class="rounded-3xl border border-border bg-card p-6 sm:p-8">
 <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
 <input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
 <input type="hidden" name="subject" value="New Inquiry from skyrdy.com">
@@ -533,18 +543,18 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 <div class="grid gap-6 sm:grid-cols-2">
 <div>
 <label for="name" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formName">Name</label>
-<input id="name" name="name" class="w-full rounded-sm border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Your name" data-i18n-placeholder="formNamePh" required />
+<input id="name" name="name" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Your name" data-i18n-placeholder="formNamePh" required />
 </div>
 <div>
 <label for="email" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formEmail">Email</label>
-<input id="email" type="email" name="email" class="w-full rounded-sm border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@company.com" required />
+<input id="email" type="email" name="email" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@company.com" required />
 </div>
 </div>
 
 <div class="grid gap-6 sm:grid-cols-2">
 <div>
 <label for="projectType" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formService">Service</label>
-<select id="projectType" name="projectType" class="w-full rounded-sm border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground">
+<select id="projectType" name="projectType" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground">
 <option value="" data-i18n="formSelectService">Select a service</option>
 <option value="Post-Production">Post-Production</option>
 <option value="Motion Design">Motion Design</option>
@@ -555,26 +565,41 @@ WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
 </select>
 </div>
 <div>
-<label for="budgetRange" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formBudget">Budget range</label>
-<select id="budgetRange" name="budgetRange" class="w-full rounded-sm border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground">
-<option value="" data-i18n="formSelectOne">Select one</option>
-<option value="Under $2,500">Under $2,500</option>
-<option value="$2,500 - $5,000">$2,500 - $5,000</option>
-<option value="$5,000+">$5,000+</option>
-</select>
+<label for="location" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formLocation">Location</label>
+<input id="location" name="location" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="City, State" data-i18n-placeholder="formLocationPh" required />
 </div>
 </div>
 
 <div>
 <label for="message" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formMessage">Message</label>
-<textarea id="message" name="message" rows="5" class="w-full rounded-sm border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Tell us about your project...and please include a working reaching phone number" data-i18n-placeholder="formMessagePh" required></textarea>
+<textarea id="message" name="message" rows="5" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Tell us about your project...and please include a working reaching phone number" data-i18n-placeholder="formMessagePh" required></textarea>
 </div>
 
-<button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-sm bg-foreground px-6 py-4 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90" data-i18n="sendMsg">
-REACH OUT TO US!
+<button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 py-4 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90" data-i18n="sendMsg">
+REACH OUT TO US.
 </button>
 </form>
 </div>
+</div>
+</div>
+</section>
+
+<!-- Newsletter Section -->
+<section id="newsletter" class="bg-background px-6 pb-24 lg:px-8">
+<div class="mx-auto max-w-7xl">
+<div class="rounded-3xl border border-border bg-card px-6 py-14 text-center sm:px-12 sm:py-16">
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="newsletterEyebrow">WANNA STAY IN THE LOOP ?</span>
+<h2 class="mt-3 font-display text-3xl text-foreground sm:text-4xl md:text-5xl" data-i18n="newsletterTitle">GET NEW WORK IN YOUR INBOX</h2>
+<p class="mt-4 text-sm text-muted-foreground sm:text-base" data-i18n="newsletterDesc">LETS KEEP YOU UPDATED, REELS, BTS AND NEWS!.</p>
+<form action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+<input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
+<input type="hidden" name="subject" value="Newsletter signup from skyrdy.com">
+<label for="newsletterEmail" class="sr-only">Email</label>
+<input id="newsletterEmail" type="email" name="email" class="w-full flex-1 rounded-full border border-input bg-background px-5 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@email.com" data-i18n-placeholder="newsletterPh" required />
+<button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90 whitespace-nowrap" data-i18n="newsletterBtn">
+SUBSCRIBE
+</button>
+</form>
 </div>
 </div>
 </section>
