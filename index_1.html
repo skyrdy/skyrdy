@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700;900&amp;display=swap" data-precedence="default"/>
+<title>SKYRDY™ — Drone Video + Motion Lab</title>
+<meta name="author" content="SKYRDY"/>
+<meta property="og:site_name" content="SKYRDY"/>
+<meta name="twitter:site" content="@skyrdy"/>
+<meta name="description" content="SKYRDY™ combines aerial drone videography, motion graphics, and post-production to create projects tailored to your needs."/>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                background: '#0a0a0a',
+                foreground: '#ededed',
+                muted: '#171717',
+                'muted-foreground': '#a3a3a3',
+                input: '#262626',
+                secondary: '#1f1f1f',
+                accent: '#54A5B1',
+                border: '#262626',
+                card: '#121212'
+            },
+            fontFamily: {
+                display: ['"Bebas Neue"', 'sans-serif'],
+                hero: ['"Anton"', 'sans-serif'],
+                sans: ['Inter', 'sans-serif']
+            },
+            keyframes: {
+                marquee: {
+                    '0%': { transform: 'translateX(0%)' },
+                    '100%': { transform: 'translateX(-50%)' }
+                }
+            },
+            animation: {
+                marquee: 'marquee 25s linear infinite',
+            }
+        }
+    }
+}
+</script>
+<script>
+// Translation dictionary
+const translations = {
+    en: {
+        navServices: "Services",
+        navAbout: "About",
+        navContact: "Contact",
+        navBook: "Book a call",
+        heroSubtitle: "VISUAL RESEARCH LAB.",
+        heroDesc: "WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.",
+        portfolioBtn: "PORTFOLIO",
+        exploreServices: "EXPLORE OUR SERVICES",
+        whatWeDo: "WHAT WE DO",
+        servicesTitle: "SERVICES & DISCIPLINES",
+        servicesDesc: "Curious about our work and what we do? Explore our services below and discover the work behind each discipline.",
+        viewWorks: "View Works →",
+        servicePortfolio: "SERVICE PORTFOLIO",
+        droneworksDesc: "Licensed drone operations, from cinematic aerials to mapping, events, and specialized captures — we take projects beyond the ground.",
+        motionDesc: "Motion graphics, titles, animation, and visual systems designed to give your ideas movement and presence.",
+        brandingDesc: "Identity systems, logos, and visual assets built to give brands a distinct point of view — on screen and beyond.",
+        filmTitle: "FILM & CINEMATOGRAPHY",
+        filmDesc: "From first idea to final frame. Cinematic production for commercials, branded stories, visual showcases, and original narratives.",
+        postDesc: "We shape the final image with our clients — editing, coloring, sound, and finishing built around the way your story needs to be seen.",
+        researchDesc: "Ideas before execution. References, moodboards, experiments, and visual studies that help discover what the project could become.",
+        aboutStudio: "ABOUT THE STUDIO",
+        aboutTitle: "SKY READY™ FOR YOUR NEXT AERIAL PROJECT",
+        aboutDesc: "At skyrdy™ (sky ready®), we combine aerial drone videography, motion graphics, and post-production to create projects tailored to our clients' needs. We offer a range of drone services—ask about the right one for you!",
+        aboutLi1: "4K aerial cinematography",
+        aboutLi2: "Motion graphics & VFX",
+        aboutLi3: "Color grading & sound design",
+        aboutLi4: "Fast turnaround for social content",
+        aboutLi5: "Bilingual production support",
+        readyStart: "READY TO START A PROJECT?",
+        bookCall: "GET IN TOUCH!",
+        contactDesc: "Tell us about your project or brand...",
+        emailLabel: "EMAIL",
+        formName: "Name",
+        formNamePh: "Your name",
+        formEmail: "Email",
+        formPhone: "Phone",
+        formPhonePh: "+1 (555) 123-4567",
+        formService: "Service",
+        formSelectService: "Select a service",
+        formLocation: "Location",
+        formLocationPh: "City, State",
+        formMessage: "Message",
+        formMessagePh: "Tell us more about your project or brand...",
+        sendMsg: "REACH OUT TO US",
+        newsletterEyebrow: "WANNA STAY IN THE LOOP ?",
+        newsletterTitle: "GET NEW WORK IN YOUR INBOX",
+        newsletterDesc: "LETS KEEP YOU UPDATED, REELS, BTS AND NEWS!.",
+        newsletterPh: "you@email.com",
+        newsletterBtn: "SUBSCRIBE",
+        footerRights: "All rights reserved.",
+        footerSub: "Drone Video + Motion Lab"
+    },
+    es: {
+        navServices: "Servicios",
+        navAbout: "Acerca de",
+        navContact: "Contacto",
+        navBook: "Agendar llamada",
+        heroSubtitle: "LABORATORIO DE INVESTIGACIÓN VISUAL.",
+        heroDesc: "EXPLORAMOS CÓMO EL MOVIMIENTO, EL DISEÑO Y LA NARRATIVA VISUAL PUEDEN DAR FORMA A TU PROYECTO.",
+        portfolioBtn: "PORTAFOLIO",
+        exploreServices: "EXPLORA NUESTROS SERVICIOS",
+        whatWeDo: "LO QUE HACEMOS",
+        servicesTitle: "SERVICIOS Y DISCIPLINAS",
+        servicesDesc: "¿Curioso por saber qué hacemos? Explora nuestros servicios y descubre el trabajo detrás de cada disciplina.",
+        viewWorks: "Ver Trabajos →",
+        servicePortfolio: "PORTAFOLIO DE SERVICIOS",
+        droneworksDesc: "Operaciones de dron con licencia, desde tomas aéreas cinematográficas hasta mapeo, eventos y capturas especializadas — llevamos los proyectos más allá del suelo.",
+        motionDesc: "Gráficos en movimiento, títulos, animación y sistemas visuales diseñados para darle movimiento y presencia a tus ideas.",
+        brandingDesc: "Sistemas de identidad, logotipos y activos visuales creados para darle a las marcas un punto de vista distintivo — en pantalla y más allá.",
+        filmTitle: "CINE Y CINEMATOGRAFÍA",
+        filmDesc: "Desde la primera idea hasta el fotograma final. Producción cinematográfica para comerciales, historias de marca, exhibiciones visuales y narrativas originales.",
+        postDesc: "Damos forma a la imagen final junto a nuestros clientes — edición, color, sonido y acabado construidos alrededor de cómo tu historia necesita ser vista.",
+        researchDesc: "Ideas antes de la ejecución. Referencias, tableros de inspiración, experimentos y estudios visuales que ayudan a descubrir en qué puede convertirse el proyecto.",
+        aboutStudio: "ACERCA DEL ESTUDIO",
+        aboutTitle: "SKY READY™ PARA TU PRÓXIMO PROYECTO AÉREO",
+        aboutDesc: "En skyrdy™ (sky ready®), combinamos videografía aérea con drones, gráficos en movimiento y postproducción para crear proyectos adaptados a las necesidades de nuestros clientes.",
+        aboutLi1: "Cinematografía aérea en 4K",
+        aboutLi2: "Gráficos en movimiento y VFX",
+        aboutLi3: "Corrección de color y diseño de sonido",
+        aboutLi4: "Entrega rápida para contenido en redes",
+        aboutLi5: "Soporte de producción bilingüe",
+        readyStart: "¡LISTO PARA INICIAR UN PROYECTO?",
+        bookCall: "¡PONTE EN CONTACTO!",
+        contactDesc: "Cuéntanos sobre tu proyecto o marca...",
+        emailLabel: "CORREO ELECTRÓNICO",
+        formName: "Nombre",
+        formNamePh: "Tu nombre",
+        formEmail: "Correo electrónico",
+        formPhone: "Teléfono",
+        formPhonePh: "+52 (555) 123-4567",
+        formService: "Servicio",
+        formSelectService: "Selecciona un servicio",
+        formLocation: "Ubicación",
+        formLocationPh: "Ciudad, Estado",
+        formMessage: "Mensaje",
+        formMessagePh: "Cuéntanos más sobre tu proyecto o marca...",
+        sendMsg: "CONTÁCTANOS",
+        newsletterEyebrow: "¿QUIERES MANTENERTE AL DÍA?",
+        newsletterTitle: "RECIBE NUEVOS TRABAJOS EN TU CORREO",
+        newsletterDesc: "TE MANTENEMOS AL DÍA, REELS, BTS Y NOTICIAS!.",
+        newsletterPh: "tu@correo.com",
+        newsletterBtn: "SUSCRIBIRSE",
+        footerRights: "Todos los derechos reservados.",
+        footerSub: "Laboratorio de Video con Drones y Movimiento"
+    }
+};
+
+let currentLang = 'en';
+
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    const t = translations[currentLang];
+    
+    document.querySelectorAll('.langToggleText').forEach(el => {
+        el.innerText = currentLang === 'en' ? 'ES' : 'EN';
+    });
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+            el.innerText = t[key];
+        }
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) {
+            el.placeholder = t[key];
+        }
+    });
+
+}
+
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('menuIconOpen');
+    const iconClose = document.getElementById('menuIconClose');
+    const isHidden = menu.classList.contains('hidden');
+    if (isHidden) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+    } else {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+    }
+}
+
+function closeMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('menuIconOpen');
+    const iconClose = document.getElementById('menuIconClose');
+    menu.classList.add('hidden');
+    menu.classList.remove('flex');
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+}
+</script>
+</head>
+<body class="bg-background text-foreground antialiased selection:bg-foreground selection:text-background font-sans overflow-x-hidden">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 bg-background/85 backdrop-blur-md border-b border-border">
+<div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+<a class="flex items-center gap-3" href="/">
+<div class="h-10 w-auto shrink-0">
+<img src="hdtrhfg.png" alt="SKYRDY Logo" class="h-full w-auto object-contain invert" />
+</div>
+<span class="font-display text-sm sm:text-base tracking-widest text-foreground font-black uppercase">SKYRDY™ DRONE VIDEO + MOTION LAB.</span>
+</a>
+<nav class="hidden items-center gap-8 md:flex">
+<a href="#services" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navServices">Services</a>
+<a href="#about" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navAbout">About</a>
+<a href="#contact" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navContact">Contact</a>
+
+<button onclick="toggleLanguage()" class="flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-foreground hover:bg-secondary transition-colors">
+    🌐 <span class="langToggleText">ES</span>
+</button>
+<a href="#contact" class="rounded-full border border-foreground/30 px-4 py-2 text-sm font-medium uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background" data-i18n="navBook">Book a call</a>
+</nav>
+<button onclick="toggleMobileMenu()" class="flex items-center justify-center rounded-full border border-border p-2.5 text-foreground md:hidden" aria-label="Toggle menu">
+<svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+</svg>
+<svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+</svg>
+</button>
+</div>
+<div id="mobileMenu" class="hidden flex-col gap-1 border-t border-border bg-background px-6 py-4 md:hidden">
+<a href="#services" onclick="closeMobileMenu()" class="block rounded-xl px-3 py-3 text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground" data-i18n="navServices">Services</a>
+<a href="#about" onclick="closeMobileMenu()" class="block rounded-xl px-3 py-3 text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground" data-i18n="navAbout">About</a>
+<a href="#contact" onclick="closeMobileMenu()" class="block rounded-xl px-3 py-3 text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground" data-i18n="navContact">Contact</a>
+<button onclick="toggleLanguage()" class="mt-2 flex items-center justify-center gap-1 rounded-full border border-border px-3 py-2.5 text-xs font-bold uppercase tracking-widest text-foreground hover:bg-secondary transition-colors">
+    🌐 <span class="langToggleText">ES</span>
+</button>
+<a href="#contact" onclick="closeMobileMenu()" class="mt-2 block rounded-full border border-foreground/30 px-4 py-3 text-center text-sm font-medium uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background" data-i18n="navBook">Book a call</a>
+</div>
+</header>
+
+<main>
+<!-- Hero Section -->
+<section class="relative flex min-h-screen flex-col justify-between overflow-hidden bg-background px-6 pt-32 pb-12 lg:px-8">
+<div class="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:radial-gradient(circle_at_center,var(--foreground)_1px,transparent_1px)] [background-size:24px_24px]"></div>
+<div class="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center text-center">
+<div class="w-full max-w-5xl">
+<h1 class="font-hero text-6xl sm:text-8xl tracking-wider text-foreground flex items-center justify-center">
+SKYRDY<span class="self-start -translate-y-2 sm:-translate-y-4 text-3xl sm:text-5xl ml-1 font-hero text-[#7A1F2B]">X</span>
+</h1>
+<p class="mt-2 font-hero text-2xl sm:text-4xl md:text-5xl tracking-[0.25em] text-foreground" data-i18n="heroSubtitle">VISUAL RESEARCH LAB.</p>
+</div>
+<p class="mt-6 text-xs sm:text-sm uppercase tracking-[0.2em] text-muted-foreground font-semibold" data-i18n="heroDesc">
+WE EXPLORE HOW MOTION, DESIGN, AND VISUAL STORYTELLING CAN SHAPE YOUR PROJECT.
+</p>
+
+<!-- Services quick links -->
+<div class="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm font-bold uppercase tracking-widest text-muted-foreground">
+<a href="#post-production" class="hover:text-foreground transition-colors">POST-PRODUCTION</a>
+<span>•</span>
+<a href="#motion-design" class="hover:text-foreground transition-colors">MOTION DESIGN</a>
+<span>•</span>
+<a href="#visual-research" class="hover:text-foreground transition-colors">VISUAL RESEARCH</a>
+<span>•</span>
+<a href="#droneworks" class="hover:text-foreground transition-colors">DRONEWORKS</a>
+<span>•</span>
+<a href="#branding" class="hover:text-foreground transition-colors">BRANDING</a>
+<span>•</span>
+<a href="#film" class="hover:text-foreground transition-colors">FILM</a>
+</div>
+
+<div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+<a href="#contact" class="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-all hover:bg-foreground/90" data-i18n="navBook">Book a call</a>
+<a href="#services" class="inline-flex items-center gap-2 rounded-full border border-foreground/30 px-6 py-3 text-sm font-black uppercase tracking-widest text-foreground transition-all hover:bg-foreground/10" data-i18n="portfolioBtn">PORTFOLIO</a>
+</div>
+
+<div class="mt-16 text-center">
+<a href="#services" class="block text-xs sm:text-sm uppercase tracking-[0.3em] text-foreground mb-3 font-black hover:text-accent transition-colors" data-i18n="exploreServices">EXPLORE OUR SERVICES</a>
+<a href="#services" class="inline-block text-foreground text-lg animate-bounce hover:text-accent transition-colors">↓</a>
+</div>
+</div>
+
+<!-- Marquee Band -->
+<div class="relative w-full overflow-hidden border-t border-border py-4 bg-background">
+<div class="flex w-max animate-marquee whitespace-nowrap">
+<div class="flex items-center gap-8 px-4">
+<a href="#motion-design" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Motion Design</a>
+<a href="#visual-research" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Visual Research</a>
+<a href="#droneworks" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Droneworks</a>
+<a href="#branding" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Branding</a>
+<a href="#film" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Film</a>
+<a href="#post-production" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Post-Production</a>
+</div>
+<div class="flex items-center gap-8 px-4" aria-hidden="true">
+<a href="#motion-design" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Motion Design</a>
+<a href="#visual-research" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Visual Research</a>
+<a href="#droneworks" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Droneworks</a>
+<a href="#branding" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Branding</a>
+<a href="#film" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Film</a>
+<a href="#post-production" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Post-Production</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Services Overview Section -->
+<section id="services" class="relative overflow-hidden bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="relative mx-auto max-w-7xl">
+<div class="mb-12 border-b border-border pb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="whatWeDo">WHAT WE DO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="servicesTitle">SERVICES &amp; DISCIPLINES</h2>
+</div>
+<p class="max-w-md text-sm text-muted-foreground" data-i18n="servicesDesc">Curious about our work and what we do? Explore our services below and discover the work behind each discipline.</p>
+</div>
+
+<div class="divide-y divide-border border-t border-border">
+<a href="#post-production" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
+<span class="font-display text-3xl text-muted-foreground group-hover:text-accent">01</span>
+<h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Post-Production</h3>
+<p class="text-sm leading-relaxed text-muted-foreground sm:text-base"><span data-i18n="postDesc">We shape the final image with our clients — editing, coloring, sound, and finishing built around the way your story needs to be seen.</span> <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
+</a>
+<a href="#motion-design" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
+<span class="font-display text-3xl text-muted-foreground group-hover:text-accent">02</span>
+<h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Motion Design</h3>
+<p class="text-sm leading-relaxed text-muted-foreground sm:text-base"><span data-i18n="motionDesc">Motion graphics, titles, animation, and visual systems designed to give your ideas movement and presence.</span> <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
+</a>
+<a href="#visual-research" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
+<span class="font-display text-3xl text-muted-foreground group-hover:text-accent">03</span>
+<h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Visual Research</h3>
+<p class="text-sm leading-relaxed text-muted-foreground sm:text-base"><span data-i18n="researchDesc">Ideas before execution. References, moodboards, experiments, and visual studies that help discover what the project could become.</span> <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
+</a>
+<a href="#droneworks" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
+<span class="font-display text-3xl text-muted-foreground group-hover:text-accent">04</span>
+<h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Droneworks</h3>
+<p class="text-sm leading-relaxed text-muted-foreground sm:text-base"><span data-i18n="droneworksDesc">Licensed drone operations, from cinematic aerials to mapping, events, and specialized captures — we take projects beyond the ground.</span> <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
+</a>
+<a href="#branding" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
+<span class="font-display text-3xl text-muted-foreground group-hover:text-accent">05</span>
+<h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Branding</h3>
+<p class="text-sm leading-relaxed text-muted-foreground sm:text-base"><span data-i18n="brandingDesc">Identity systems, logos, and visual assets built to give brands a distinct point of view — on screen and beyond.</span> <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
+</a>
+<a href="#film" class="group grid gap-4 py-8 sm:grid-cols-[80px_1fr_2fr] sm:items-center sm:gap-8 hover:bg-secondary/20 transition-colors px-4 rounded-2xl">
+<span class="font-display text-3xl text-muted-foreground group-hover:text-accent">06</span>
+<h3 class="font-display text-2xl text-foreground sm:text-3xl group-hover:text-accent transition-colors">Film</h3>
+<p class="text-sm leading-relaxed text-muted-foreground sm:text-base"><span data-i18n="filmDesc">From first idea to final frame. Cinematic production for commercials, branded stories, visual showcases, and original narratives.</span> <span class="block mt-2 text-xs font-bold uppercase tracking-widest text-foreground group-hover:underline" data-i18n="viewWorks">View Works →</span></p>
+</a>
+</div>
+</div>
+</section>
+
+<!-- Droneworks -->
+<section id="droneworks" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">SERVICE PORTFOLIO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl">DRONEWORKS</h2>
+</div>
+<p class="max-w-md text-sm text-muted-foreground" data-i18n="droneworksDesc">Licensed drone operations, from cinematic aerials to mapping, events, and specialized captures — we take projects beyond the ground.</p>
+</div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/hQiWnZQHtc4" 
+    title="Droning Cabos CoastLine Reef" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Droning Cabos CoastLine Reef</h3>
+<p class="text-sm text-muted-foreground mt-1">2024</p>
+</div>
+</div>
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/YmeDebNWPxk" 
+    title="Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX</h3>
+<p class="text-sm text-muted-foreground mt-1">2020</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Motion Design -->
+<section id="motion-design" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">SERVICE PORTFOLIO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl">MOTION DESIGN</h2>
+</div>
+<p class="max-w-md text-sm text-muted-foreground" data-i18n="motionDesc">Motion graphics, titles, animation, and visual systems designed to give your ideas movement and presence.</p>
+</div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/NAV2HUMH25k" 
+    title="skyrdy™ Visual Research Labs." 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">skyrdy™ Visual Research Labs.</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/bCvhn3rff1I" 
+    title="Silvered Logo Intro For Lattice® Beauty Brands" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Silvered Logo Intro For Lattice® Beauty Brands</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Branding -->
+<section id="branding" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">SERVICE PORTFOLIO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl">BRANDING</h2>
+</div>
+<p class="max-w-md text-sm text-muted-foreground" data-i18n="brandingDesc">Identity systems, logos, and visual assets built to give brands a distinct point of view — on screen and beyond.</p>
+</div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/3GU2Fa0nf6Q" 
+    title="Logo intro for a brand Tentant®" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Logo intro for a brand Tentant®</h3>
+<p class="text-sm text-muted-foreground mt-1">2023</p>
+</div>
+</div>
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/qJFCCenK7xg" 
+    title="Branding Tentant®" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Branding Tentant®</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Film -->
+<section id="film" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">SERVICE PORTFOLIO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="filmTitle">FILM &amp; CINEMATOGRAPHY</h2>
+</div>
+<p class="max-w-md text-sm text-muted-foreground" data-i18n="filmDesc">From first idea to final frame. Cinematic production for commercials, branded stories, visual showcases, and original narratives.</p>
+</div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/M-xMs__8t90" 
+    title="El Arco de Cabos San Lucas, BCS but vintage!" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">El Arco de Cabos San Lucas, BCS but vintage!</h3>
+<p class="text-sm text-muted-foreground mt-1">2023</p>
+</div>
+</div>
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/ZEZff4cU-58" 
+    title="WE LOVE LA PAZ SUNSETS AND LANDSCAPES" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Post-Production -->
+<section id="post-production" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">SERVICE PORTFOLIO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl">POST-PRODUCTION</h2>
+</div>
+<p class="max-w-md text-sm text-muted-foreground" data-i18n="postDesc">We shape the final image with our clients — editing, coloring, sound, and finishing built around the way your story needs to be seen.</p>
+</div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/EGUC1EOu0lU" 
+    title="Cinematic Drone Top Down / CruiseShip Chase" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Cinematic Drone Top Down / CruiseShip Chase</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/HlD-ugXKieo" 
+    title="Dronework For A Local Company In Tijuana" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Dronework For A Local Company In Tijuana</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Visual Research -->
+<section id="visual-research" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">SERVICE PORTFOLIO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl">VISUAL RESEARCH</h2>
+</div>
+<p class="max-w-md text-sm text-muted-foreground" data-i18n="researchDesc">Ideas before execution. References, moodboards, experiments, and visual studies that help discover what the project could become.</p>
+</div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/kzH9lbCw2y8" 
+    title="Trending" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Trending</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+<div class="group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0"
+    src="https://www.youtube-nocookie.com/embed/tKMjmkNGB3Q" 
+    title="Concept Burger Ad For Social Media Made With AE" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Concept Burger Ad For Social Media Made With AE</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="aboutStudio">ABOUT THE STUDIO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="aboutTitle">SKY READY™ FOR YOUR NEXT AERIAL PROJECT</h2>
+<p class="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg" data-i18n="aboutDesc">At skyrdy™ (sky ready®), we combine aerial drone videography, motion graphics, and post-production to create projects tailored to our clients' needs. We offer a range of drone services—ask about the right one for you!</p>
+
+<ul class="mt-8 space-y-3">
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi1">4K aerial cinematography</span>
+</li>
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi2">Motion graphics &amp; VFX</span>
+</li>
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi3">Color grading &amp; sound design</span>
+</li>
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi4">Fast turnaround for social content</span>
+</li>
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi5">Bilingual production support</span>
+</li>
+</ul>
+</div>
+<div class="relative flex aspect-square items-center justify-center rounded-3xl border border-border bg-secondary/20 p-8">
+<div class="w-full h-full max-w-sm flex items-center justify-center">
+<img src="Colored%20Logo.png" alt="SKYRDY Logo" class="w-full h-full object-contain" />
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 border-b border-border pb-6">
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="readyStart">READY TO START A PROJECT?</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="bookCall">GET IN TOUCH!</h2>
+</div>
+<div class="grid gap-12 lg:grid-cols-2">
+<div>
+<p class="text-lg leading-relaxed text-muted-foreground" data-i18n="contactDesc">Tell us about your project or brand...</p>
+<div class="mt-8">
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="emailLabel">EMAIL</span>
+<a href="mailto:skyrdymx@gmail.com" class="mt-2 block text-xl text-foreground transition-colors hover:text-accent">skyrdymx@gmail.com</a>
+</div>
+</div>
+<div class="rounded-3xl border border-border bg-card p-6 sm:p-8">
+<form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+<input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
+<input type="hidden" name="subject" value="New Inquiry from skyrdy.com">
+
+<div class="grid gap-6 sm:grid-cols-3">
+<div>
+<label for="name" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formName">Name</label>
+<input id="name" name="name" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Your name" data-i18n-placeholder="formNamePh" required />
+</div>
+<div>
+<label for="email" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formEmail">Email</label>
+<input id="email" type="email" name="email" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@company.com" required />
+</div>
+<div>
+<label for="phone" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formPhone">Phone</label>
+<input id="phone" type="tel" name="phone" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="+1 (555) 123-4567" data-i18n-placeholder="formPhonePh" pattern="[0-9+\-\s()]{7,20}" title="Enter a valid phone number (digits only, 7-20 characters)" inputmode="tel" required />
+</div>
+</div>
+
+<div class="grid gap-6 sm:grid-cols-2">
+<div>
+<label for="projectType" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formService">Service</label>
+<select id="projectType" name="projectType" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground">
+<option value="" data-i18n="formSelectService">Select a service</option>
+<option value="Post-Production">Post-Production</option>
+<option value="Motion Design">Motion Design</option>
+<option value="Visual Research">Visual Research</option>
+<option value="Droneworks">Droneworks</option>
+<option value="Branding">Branding</option>
+<option value="Film">Film</option>
+</select>
+</div>
+<div>
+<label for="location" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formLocation">Location</label>
+<input id="location" name="location" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="City, State" data-i18n-placeholder="formLocationPh" required />
+</div>
+</div>
+
+<div>
+<label for="message" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formMessage">Message</label>
+<textarea id="message" name="message" rows="5" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Tell us more about your project or brand..." data-i18n-placeholder="formMessagePh" required></textarea>
+</div>
+
+<button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 py-4 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90" data-i18n="sendMsg">
+REACH OUT TO US
+</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Newsletter Section -->
+<section id="newsletter" class="bg-background px-6 pb-24 lg:px-8">
+<div class="mx-auto max-w-7xl">
+<div class="rounded-3xl border border-border bg-card px-6 py-14 text-center sm:px-12 sm:py-16">
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="newsletterEyebrow">WANNA STAY IN THE LOOP ?</span>
+<h2 class="mt-3 font-display text-3xl text-foreground sm:text-4xl md:text-5xl" data-i18n="newsletterTitle">GET NEW WORK IN YOUR INBOX</h2>
+<p class="mt-4 text-sm text-muted-foreground sm:text-base" data-i18n="newsletterDesc">LETS KEEP YOU UPDATED, REELS, BTS AND NEWS!.</p>
+<form action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+<input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
+<input type="hidden" name="subject" value="Newsletter signup from skyrdy.com">
+<label for="newsletterEmail" class="sr-only">Email</label>
+<input id="newsletterEmail" type="email" name="email" class="w-full flex-1 rounded-xl border border-input bg-background px-5 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@email.com" data-i18n-placeholder="newsletterPh" required />
+<button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90 whitespace-nowrap" data-i18n="newsletterBtn">
+SUBSCRIBE
+</button>
+</form>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-border bg-background px-6 py-12 lg:px-8">
+<div class="mx-auto max-w-7xl flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
+<p>&copy; 2026 SKYRDY™ - sky ready®. <span data-i18n="footerRights">All rights reserved.</span></p>
+<p class="uppercase tracking-widest" data-i18n="footerSub">Drone Video + Motion Lab</p>
+</div>
+</footer>
+
+</body>
+</html>
