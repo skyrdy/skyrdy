@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link data-precedence="default" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<title>SKYRDY™ — Drone Video + Motion Lab</title>
+<meta content="SKYRDY" name="author"/>
+<meta content="SKYRDY" property="og:site_name"/>
+<meta content="@skyrdy" name="twitter:site"/>
+<meta content="SKYRDY™ combines aerial drone videography, motion graphics, and post-production to create projects tailored to your needs." name="description"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                background: '#0a0a0a',
+                foreground: '#ededed',
+                muted: '#171717',
+                'muted-foreground': '#a3a3a3',
+                input: '#262626',
+                secondary: '#1f1f1f',
+                accent: '#54A5B1',
+                border: '#262626',
+                card: '#121212'
+            },
+            fontFamily: {
+                display: ['"Bebas Neue"', 'sans-serif'],
+                hero: ['"Anton"', 'sans-serif'],
+                sans: ['Inter', 'sans-serif']
+            },
+            keyframes: {
+                marquee: {
+                    '0%': { transform: 'translateX(0%)' },
+                    '100%': { transform: 'translateX(-50%)' }
+                }
+            },
+            animation: {
+                marquee: 'marquee 25s linear infinite',
+            }
+        }
+    }
+}
+</script>
+<script>
+// Translation dictionary
+const translations = {
+    en: {
+        navServices: "Services",
+        navAbout: "About",
+        navStory: "Our Story",
+        navContact: "Contact",
+        navBook: "Start a project",
+        heroSubtitle: "VISUAL RESEARCH LAB.",
+        heroDesc: "DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.",
+        portfolioBtn: "PORTFOLIO",
+        exploreServices: "EXPLORE OUR SERVICES",
+        whatWeDo: "WHAT WE DO",
+        servicesTitleLine1: "SERVICES",
+        servicesTitleLine2: "& DISCIPLINES",
+        servicesDesc: "Curious about our work and what we do? Explore our services below and discover the work behind each discipline.",
+        viewWorks: "View Works →",
+        servicePortfolio: "EXPLORE SOME OF OUR WORK",
+        droneworksDesc: "Licensed drone operations for cinematic aerials and location-driven work across hospitality, architecture, real estate, destinations, and more. We take projects beyond the ground.",
+        motionDesc: "Motion graphics, titles, animations, and visual systems designed to give your ideas dynamic movement and presence.",
+        filmTitle: "FILM & CINEMATOGRAPHY",
+        filmDesc: "Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.",
+        researchDesc: "Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.",
+        droneworksDescShort: "Aerial cinematography, aerial photography, FPV, exploration & more services.",
+        filmDescShort: "Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.",
+        motionDescShort: "2D/3D, animation, titles, VFX, graphics.",
+        researchDescShort: "Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.",
+        storyLabel: "THE STORY BEHIND SKY READY™",
+        storyTitleLine1: "FROM",
+        storyTitleLine2: "HIKE TO LAB",
+        storySubtitle: "What started with a hike and a little Parrot drone slowly evolved into something much bigger.",
+        storyTitle2014: "THE FIRST FLIGHT",
+        storyTitle2017: "THE BIGGER VISION",
+        storyTitle2020: "WE KEEP LEARNING",
+        storyTitleToday: "WE KEEP FLYING",
+        story2014P1: "We started Sky Ready™ back in 2014, when I was living abroad, surrounded by mountains and woods and spending a lot of time outdoors. I was a big \"hiking aficionado,\" always looking for new ways to explore and document the places I was discovering. At some point, a simple idea came up: what if we could take a selfie from far away, or actually record everything around us while we were out exploring? That's when we did our research, found drones, and learned what they could do, and that's when we fell in love with them.",
+        story2014P2: "That curiosity led us to our first drone, a Parrot. We had no idea what we were doing. We didn't know photography, video, or filmmaking, and we definitely didn't know that flying a camera was going to turn into something much bigger. At the time, it was simply recreation, fun, and a way to record our hikes and the places we were exploring.",
+        story2014P3: "Then came our second drone, a Mavic Pro. That's when we realized something: we had a drone, but we had no idea what we were doing with photography or video.",
+        story2014P4: "We wanted to learn. An opportunity came up for me to study cinematography in Mexico City, so we moved to CDMX and enrolled at Facultad de Cine, in La Roma, to study film. We wanted to understand more than just how to fly. We wanted to learn how to create images, tell stories, work with light, movement, and composition, and ultimately understand how to use a camera as a storytelling tool.",
+        story2017P1: "We eventually stepped up to a high-end Inspire 2, got licensed and insured, and officially became SKYRDY™ — short for Sky Ready — Drone Video + Motion Lab. In 2017, we established SKYRDY™ in Mexico City and began our journey into the film and television industry.",
+        story2017P2: "For a few months, things started moving in the direction we had dreamed about. Then the earthquake hit. Film and television production came to a halt, and once again, life forced us to change course. I relocated to Baja, where I continued working with local talent, taking on smaller gigs, and finding ways to keep creating.",
+        story2020P1: "Then, in 2020, the pandemic hit. This time, we had to stop for a while. But stopping didn't mean giving up. We kept learning. We completed a couple of online courses and turned to what we jokingly call \"YouTube University,\" and continued teaching ourselves, experimenting, practicing, and figuring things out one project at a time.",
+        story2020P2: "Along the way, we grew the team, expanded our services, improved our equipment, refined our skills, and, most importantly, developed a much clearer vision of what SKYRDY™ could become.",
+        storyTodayLabel: "TODAY",
+        storyTodayP1: "What started with a hike and a little Parrot drone slowly evolved into something much bigger. Today, we are relaunching something that was once just a dream. After all these years, that dream is still alive and well. And we're still doing what we've always loved:",
+        storyMantra: "Keep learning. Keep growing. Keep experimenting. Keep filming. Keep flying.",
+        storyTagline: "SKYRDY™ — Drone Video + Motion Lab.",
+        aboutStudio: "ABOUT THE STUDIO",
+        aboutTitle: "SKY READY™ FOR YOUR NEXT AERIAL PROJECT",
+        aboutDesc: "At skyrdy™ (sky ready®), we combine aerial drone videography, motion graphics, and post-production to create projects tailored to our client needs. We offer a range of drone services—ask about the right one for you!",
+        aboutLi1: "4K aerial cinematography",
+        aboutLi2: "Motion graphics & VFX",
+        aboutLi3: "Color grading & sound design",
+        aboutLi4: "Fast turnaround for social content",
+        aboutLi5: "Bilingual production support",
+        readyStart: "READY TO START A PROJECT?",
+        bookCall: "READY TO FLY?!",
+        contactDesc: "Tell us about your project or brand...",
+        emailLabel: "EMAIL",
+        formName: "Name",
+        formNamePh: "Your name",
+        formEmail: "Email",
+        formPhone: "Phone",
+        formPhonePh: "+1 (555) 123-4567",
+        formService: "Service",
+        formSelectService: "Select a service",
+        formLocation: "Location",
+        formLocationPh: "City, State",
+        formMessage: "Message",
+        formMessagePh: "Tell us more about your project or brand...",
+        sendMsg: "REACH OUT TO US",
+        newsletterEyebrow: "WANNA STAY IN THE LOOP ?",
+        newsletterTitle: "GET NEW WORK IN YOUR INBOX",
+        newsletterDesc: "LETS KEEP YOU UPDATED, REELS, BTS AND NEWS!.",
+        newsletterPh: "you@email.com",
+        newsletterBtn: "SUBSCRIBE",
+        footerRights: "All rights reserved.",
+        footerSub: "Drone Video + Motion Lab",
+        followUs: "Let's get social, connect with us."
+    },
+    es: {
+        navServices: "Servicios",
+        navAbout: "Acerca de",
+        navStory: "Nuestra Historia",
+        navContact: "Contacto",
+        navBook: "Iniciar un proyecto",
+        heroSubtitle: "LABORATORIO DE INVESTIGACIÓN VISUAL.",
+        heroDesc: "IMPULSADOS POR LA INVESTIGACIÓN VISUAL, CREAMOS IMÁGENES AÉREAS DE CALIDAD CINEMATOGRÁFICA, NARRATIVA VISUAL Y MOTION DESIGN PARA DAR FORMA A CÓMO SE VE TU PROYECTO.",
+        portfolioBtn: "PORTAFOLIO",
+        exploreServices: "EXPLORA NUESTROS SERVICIOS",
+        whatWeDo: "LO QUE HACEMOS",
+        servicesTitleLine1: "SERVICIOS",
+        servicesTitleLine2: "Y DISCIPLINAS",
+        servicesDesc: "¿Curioso por saber qué hacemos? Explora nuestros servicios y descubre el trabajo detrás de cada disciplina.",
+        viewWorks: "Ver Trabajos →",
+        servicePortfolio: "EXPLORA ALGO DE NUESTRO TRABAJO",
+        droneworksDesc: "Operaciones de dron con licencia para tomas aéreas cinematográficas y trabajo enfocado en locaciones — hospitalidad, arquitectura, bienes raíces, destinos y más. Llevamos los proyectos más allá del suelo.",
+        motionDesc: "Gráficos en movimiento, títulos, animaciones y sistemas visuales diseñados para darle a tus ideas movimiento dinámico y presencia.",
+        filmTitle: "CINE Y CINEMATOGRAFÍA",
+        filmDesc: "Narrativa cinematográfica para negocios, lugares, marcas y experiencias. Desde hospitalidad y bienes raíces hasta campañas, producciones y eventos. Damos forma a la imagen final junto a nuestros clientes — edición, corrección de color, gráficos en movimiento y detalles de acabado que unen la historia exactamente como necesita ser vista.",
+        researchDesc: "Identidades visuales, campañas sociales y contenido de formato corto creados para marcas modernas y audiencias digitales. Ideas antes de la ejecución. Referencias, tableros de inspiración, experimentos y estudios visuales que ayudan a descubrir en qué puede convertirse un proyecto.",
+        droneworksDescShort: "Cinematografía aérea, fotografía aérea, FPV, exploración y más servicios.",
+        filmDescShort: "Narrativa cinematográfica para negocios, lugares, marcas y experiencias. Desde hospitalidad y bienes raíces hasta campañas, producciones y eventos. Damos forma a la imagen final junto a nuestros clientes — edición, corrección de color, gráficos en movimiento y detalles de acabado que unen la historia exactamente como necesita ser vista.",
+        motionDescShort: "2D/3D, animación, títulos, VFX, gráficos.",
+        researchDescShort: "Identidades visuales, campañas sociales y contenido de formato corto creados para marcas modernas y audiencias digitales. Ideas antes de la ejecución. Referencias, tableros de inspiración, experimentos y estudios visuales que ayudan a descubrir en qué puede convertirse un proyecto.",
+        storyLabel: "LA HISTORIA DETRÁS DE SKY READY™",
+        storyTitleLine1: "DE LA CAMINATA",
+        storyTitleLine2: "AL LABORATORIO",
+        storySubtitle: "Lo que comenzó con una caminata y un pequeño dron Parrot fue evolucionando poco a poco hasta convertirse en algo mucho más grande.",
+        storyTitle2014: "EL PRIMER VUELO",
+        storyTitle2017: "LA VISIÓN MÁS GRANDE",
+        storyTitle2020: "SEGUIMOS APRENDIENDO",
+        storyTitleToday: "SEGUIMOS VOLANDO",
+        story2014P1: "Sky Ready™ nació en 2014, cuando vivía en el extranjero, rodeado de montañas y bosques, y pasaba mucho tiempo al aire libre. Era un gran aficionado al senderismo, siempre buscando nuevas formas de explorar y documentar los lugares que descubría. En algún momento surgió una idea simple: ¿y si pudiéramos tomarnos una selfie desde lejos, o grabar todo a nuestro alrededor mientras explorábamos? Ahí fue cuando investigamos, encontramos los drones y descubrimos lo que podían hacer, y ahí fue cuando nos enamoramos de ellos.",
+        story2014P2: "Esa curiosidad nos llevó a nuestro primer dron: un Parrot. No teníamos idea de lo que estábamos haciendo. No sabíamos de fotografía, video ni cine, y mucho menos imaginábamos que volar una cámara se convertiría en algo mucho más grande. En ese momento era simplemente recreación, diversión y una forma de registrar nuestras caminatas y los lugares que explorábamos.",
+        story2014P3: "Luego llegó nuestro segundo dron, un Mavic Pro. Fue entonces cuando nos dimos cuenta de algo: teníamos un dron, pero no teníamos idea de qué hacer con la fotografía o el video.",
+        story2014P4: "Queríamos aprender. Surgió la oportunidad de estudiar cinematografía en la Ciudad de México, así que nos mudamos a la CDMX y nos inscribimos en la Facultad de Cine, en La Roma. Queríamos entender más que solo volar: queríamos aprender a crear imágenes, contar historias, trabajar con la luz, el movimiento y la composición, y en última instancia entender cómo usar una cámara como herramienta narrativa.",
+        story2017P1: "Eventualmente dimos el salto a un Inspire 2 de gama alta, obtuvimos licencia y seguro, y oficialmente nos convertimos en SKYRDY™ — abreviación de Sky Ready — Drone Video + Motion Lab. En 2017 establecimos SKYRDY™ en la Ciudad de México y comenzamos nuestro camino en la industria del cine y la televisión.",
+        story2017P2: "Durante algunos meses, las cosas empezaron a moverse en la dirección que habíamos soñado. Entonces llegó el terremoto. La producción de cine y televisión se detuvo, y una vez más la vida nos obligó a cambiar de rumbo. Me mudé a Baja, donde seguí trabajando con talento local, tomando proyectos pequeños y buscando formas de seguir creando.",
+        story2020P1: "Luego, en 2020, llegó la pandemia. Esta vez tuvimos que detenernos por un tiempo. Pero detenernos no significó rendirnos. Seguimos aprendiendo. Completamos algunos cursos en línea y recurrimos a lo que en broma llamamos la \"Universidad de YouTube\", y seguimos aprendiendo por nuestra cuenta, experimentando, practicando y resolviendo las cosas proyecto por proyecto.",
+        story2020P2: "En el camino, hicimos crecer al equipo, ampliamos nuestros servicios, mejoramos nuestro equipo, refinamos nuestras habilidades y, lo más importante, desarrollamos una visión mucho más clara de lo que SKYRDY™ podía llegar a ser.",
+        storyTodayLabel: "HOY",
+        storyTodayP1: "Lo que comenzó con una caminata y un pequeño dron Parrot fue evolucionando poco a poco hasta convertirse en algo mucho más grande. Hoy estamos relanzando algo que alguna vez fue solo un sueño. Después de todos estos años, ese sueño sigue vivo. Y seguimos haciendo lo que siempre nos ha encantado:",
+        storyMantra: "Sigue aprendiendo. Sigue creciendo. Sigue experimentando. Sigue filmando. Sigue volando.",
+        storyTagline: "SKYRDY™ — Drone Video + Motion Lab.",
+        aboutStudio: "ACERCA DEL ESTUDIO",
+        aboutTitle: "SKY READY™ PARA TU PRÓXIMO PROYECTO AÉREO",
+        aboutDesc: "En skyrdy™ (sky ready®), combinamos videografía aérea con drones, gráficos en movimiento y postproducción para crear proyectos adaptados a las necesidades de nuestros clientes.",
+        aboutLi1: "Cinematografía aérea en 4K",
+        aboutLi2: "Gráficos en movimiento y VFX",
+        aboutLi3: "Corrección de color y diseño de sonido",
+        aboutLi4: "Entrega rápida para contenido en redes",
+        aboutLi5: "Soporte de producción bilingüe",
+        readyStart: "¡LISTO PARA INICIAR UN PROYECTO?",
+        bookCall: "¿LISTOS PARA VOLAR?!",
+        contactDesc: "Cuéntanos sobre tu proyecto o marca...",
+        emailLabel: "CORREO ELECTRÓNICO",
+        formName: "Nombre",
+        formNamePh: "Tu nombre",
+        formEmail: "Correo electrónico",
+        formPhone: "Teléfono",
+        formPhonePh: "+52 (555) 123-4567",
+        formService: "Servicio",
+        formSelectService: "Selecciona un servicio",
+        formLocation: "Ubicación",
+        formLocationPh: "Ciudad, Estado",
+        formMessage: "Mensaje",
+        formMessagePh: "Cuéntanos más sobre tu proyecto o marca...",
+        sendMsg: "CONTÁCTANOS",
+        newsletterEyebrow: "¿QUIERES MANTENERTE AL DÍA?",
+        newsletterTitle: "RECIBE NUEVOS TRABAJOS EN TU CORREO",
+        newsletterDesc: "TE MANTENEMOS AL DÍA, REELS, BTS Y NOTICIAS!.",
+        newsletterPh: "tu@correo.com",
+        newsletterBtn: "SUSCRIBIRSE",
+        footerRights: "Todos los derechos reservados.",
+        footerSub: "Laboratorio de Video con Drones y Movimiento",
+        followUs: "Seamos sociales, conéctate con nosotros."
+    }
+};
+
+let currentLang = 'en';
+
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    const t = translations[currentLang];
+    
+    document.querySelectorAll('.langToggleText').forEach(el => {
+        el.innerText = currentLang === 'en' ? 'ES' : 'EN';
+    });
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+            el.innerText = t[key];
+        }
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) {
+            el.placeholder = t[key];
+        }
+    });
+
+}
+
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('menuIconOpen');
+    const iconClose = document.getElementById('menuIconClose');
+    const isHidden = menu.classList.contains('hidden');
+    if (isHidden) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+    } else {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+    }
+}
+
+function closeMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('menuIconOpen');
+    const iconClose = document.getElementById('menuIconClose');
+    menu.classList.add('hidden');
+    menu.classList.remove('flex');
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Scroll-reveal animations
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => revealObserver.observe(el));
+    } else {
+        revealEls.forEach(el => el.classList.add('visible'));
+    }
+});
+</script>
+<style>
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Hero HUD — drone tracking frame */
+.hero-hud {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hud-frame {
+    position: relative;
+    width: min(78vw, 860px);
+    height: min(60vh, 560px);
+}
+.hud-corner {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid rgba(84, 165, 177, 0.4);
+    animation: hud-pulse 4.5s ease-in-out infinite;
+}
+.hud-corner-tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.hud-corner-tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.hud-corner-bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.hud-corner-br { bottom: 0; right: 0; border-left: none; border-top: none; }
+.hud-scanline {
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(84, 165, 177, 0.55), transparent);
+    animation: hud-scan 7s ease-in-out infinite;
+}
+.hud-tag {
+    position: absolute;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: rgba(84, 165, 177, 0.5);
+    animation: hud-pulse 4.5s ease-in-out infinite;
+}
+.hud-tag-tl { top: -22px; left: 0; }
+.hud-tag-br { bottom: -22px; right: 0; }
+@keyframes hud-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.85; }
+}
+@keyframes hud-scan {
+    0%, 100% { top: 2%; opacity: 0; }
+    12% { opacity: 1; }
+    50% { top: 98%; opacity: 1; }
+    62% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hud-corner, .hud-scanline, .hud-tag { animation: none; opacity: 0.4; }
+}
+@media (max-width: 640px) {
+    .hud-tag { display: none; }
+}
+</style>
+
+<style>
+/* SKYRDY art-directed portfolio pass */
+.portfolio-mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:28px;align-items:start}
+.portfolio-card{position:relative;min-width:0}
+.portfolio-card--01{grid-column:span 8;grid-row:span 2}
+.portfolio-card--02,.portfolio-card--03{grid-column:span 4}
+.portfolio-card--04,.portfolio-card--05,.portfolio-card--06{grid-column:span 4}
+.portfolio-media{position:relative;width:100%;overflow:hidden;background:#050505;border:1px solid #262626}
+.portfolio-card--01 .portfolio-media{aspect-ratio:16/9}
+.portfolio-card:not(.portfolio-card--01) .portfolio-media{aspect-ratio:16/9}
+.portfolio-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s ease;filter:saturate(.9) contrast(1.04)}
+.portfolio-card:hover .portfolio-media img{transform:scale(1.045);filter:saturate(1) contrast(1.06)}
+.portfolio-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),transparent 25%,transparent 65%,rgba(0,0,0,.4));pointer-events:none}
+.portfolio-number{position:absolute;z-index:3;top:14px;left:16px;font:700 12px/1 Inter,sans-serif;letter-spacing:.16em;color:#ededed}
+.portfolio-launch{position:absolute;z-index:4;right:16px;bottom:16px;width:38px;height:38px;border:1px solid rgba(237,237,237,.7);border-radius:999px;display:grid;place-items:center;background:rgba(0,0,0,.22);backdrop-filter:blur(4px);transition:background .25s ease,transform .25s ease,border-color .25s ease}
+.portfolio-launch svg{width:16px;height:16px;stroke:#ededed;fill:none;stroke-width:1.5}
+.portfolio-card:hover .portfolio-launch{background:#54A5B1;border-color:#54A5B1;transform:translate(1px,-1px)}
+.portfolio-meta{display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-top:14px;padding-bottom:14px;border-bottom:1px solid #262626}
+.portfolio-category{font:700 10px/1 Inter,sans-serif;letter-spacing:.18em;color:#54A5B1;text-transform:uppercase}
+.portfolio-year{font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;color:#737373}
+.portfolio-title{margin-top:7px;font:400 clamp(20px,2vw,30px)/.98 'Bebas Neue',sans-serif;letter-spacing:.01em;color:#ededed;text-transform:uppercase}
+.portfolio-card--01 .portfolio-title{font-size:clamp(28px,3vw,42px)}
+.portfolio-embed{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;z-index:5}
+.portfolio-media.is-playing img,.portfolio-media.is-playing .portfolio-cover{display:none}
+.portfolio-media.is-playing .portfolio-embed{display:block}
+.portfolio-cover{position:absolute;inset:0;z-index:2;cursor:pointer}
+.portfolio-cover:focus-visible{outline:2px solid #54A5B1;outline-offset:-2px}
+@media (max-width:900px){.portfolio-mosaic{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.portfolio-card--01{grid-column:span 2;grid-row:auto}.portfolio-card--02,.portfolio-card--03,.portfolio-card--04,.portfolio-card--05,.portfolio-card--06{grid-column:span 1}}
+@media (max-width:600px){.portfolio-mosaic{grid-template-columns:1fr;gap:28px}.portfolio-card--01,.portfolio-card--02,.portfolio-card--03,.portfolio-card--04,.portfolio-card--05,.portfolio-card--06{grid-column:span 1}.portfolio-title,.portfolio-card--01 .portfolio-title{font-size:28px}}
+</style>
+</head>
+<body class="bg-background text-foreground antialiased selection:bg-foreground selection:text-background font-sans overflow-x-hidden">
+<main>
+<!-- Art-directed Hero -->
+<section class="relative min-h-screen overflow-hidden bg-[#07090a] text-white">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_78%_42%,rgba(84,165,177,.12),transparent_34%),linear-gradient(90deg,#080a0b_0%,#0b0d0e_45%,#242729_100%)]"></div>
+  <div class="absolute right-0 top-0 h-full w-[57%] overflow-hidden">
+    <iframe class="absolute inset-0 h-full w-full scale-[1.18] border-0 opacity-70" src="https://www.youtube-nocookie.com/embed/hucVSn_azCg?autoplay=1&mute=1&loop=1&playlist=hucVSn_azCg&controls=0&modestbranding=1&rel=0" title="Balandra" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <div class="absolute inset-0 bg-black/55"></div>
+    <div class="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#07090a] to-transparent"></div>
+  </div>
+  <div class="relative z-10 flex min-h-screen flex-col justify-between px-8 pb-8 pt-16 lg:px-14">
+    <div class="text-[11px] font-black uppercase tracking-[.34em] text-[#54cbd4]">SKYRDY™ / VISUAL RESEARCH LAB.</div>
+    <div class="flex flex-1 items-center">
+      <div class="max-w-[650px]">
+        <h1 class="font-hero uppercase leading-[.78] tracking-[-.045em] text-white" style="font-size:clamp(86px,12vw,184px)">
+          <span class="block">VISUAL</span>
+          <span class="block text-[#54cbd4]">RESEARCH</span>
+          <span class="block">LAB<span class="ml-2 inline-block align-[.04em] text-[#54cbd4]" style="font-size:.72em">●</span></span>
+        </h1>
+        <p class="mt-7 max-w-[590px] text-sm font-bold uppercase leading-[1.75] tracking-[.12em] text-white/75 sm:text-base">
+          DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a class="rounded-full bg-[#54cbd4] px-7 py-3 text-sm font-black uppercase tracking-[.14em] text-black" href="#contact">START A PROJECT ↗</a>
+          <a class="rounded-full border border-white/30 px-7 py-3 text-sm font-black uppercase tracking-[.14em] text-white" href="#droneworks">EXPLORE THE WORK ↓</a>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-end justify-between gap-8 text-[10px] font-black uppercase tracking-[.28em] text-white/55">
+      <div>DRONEWORKS &nbsp; / &nbsp; FILM &nbsp; / &nbsp; MOTION DESIGN &nbsp; / &nbsp; VISUAL RESEARCH</div>
+    </div>
+  </div>
+</section>
+<!-- Services Overview Section -->
+<section class="relative overflow-hidden bg-background px-6 py-24 lg:px-8 border-t border-border" id="services">
+<div class="relative mx-auto max-w-7xl">
+<div class="mb-12 border-b border-border pb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.28em] text-accent" data-i18n="whatWeDo">WHAT WE DO</span>
+<h2 class="mt-3 font-hero uppercase text-foreground text-[clamp(58px,9vw,140px)] leading-[0.82] tracking-[-0.02em]">
+<span data-i18n="servicesTitleLine1">SERVICES</span><br/><span data-i18n="servicesTitleLine2">&amp; DISCIPLINES</span>
+</h2>
+</div>
+<p class="max-w-md text-sm uppercase text-muted-foreground" data-i18n="servicesDesc">Curious about our work and what we do? Explore our services below and discover the work behind each discipline.</p>
+</div>
+<div class="divide-y divide-border border-t border-border">
+<a class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6" href="#droneworks">
+<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">01</span>
+<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Droneworks</h3>
+<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="droneworksDesc">Licensed drone operations for cinematic aerials and location-driven work across hospitality, architecture, real estate, destinations, and more. We take projects beyond the ground.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+</a>
+<a class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6" href="#film">
+<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">02</span>
+<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Film</h3>
+<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="filmDesc">Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+</a>
+<a class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6" href="#motion-design">
+<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">03</span>
+<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Motion Design</h3>
+<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="motionDesc">Motion graphics, titles, animations, and visual systems designed to give your ideas dynamic movement and presence.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+</a>
+<a class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6" href="#visual-research">
+<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">04</span>
+<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Visual Research</h3>
+<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="researchDesc">Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Droneworks -->
+<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="droneworks">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div><span class="font-display text-sm tracking-[0.2em] text-accent">EXPLORE SOME OF OUR WORK</span><h2 class="mt-2 font-display text-2xl text-foreground sm:text-3xl md:text-4xl">FILM &amp; CINEMATOGRAPHY</h2></div>
+</div>
+<div class="portfolio-mosaic"><article class="portfolio-card portfolio-card--01 reveal group">
+<div class="portfolio-media">
+<div aria-label="Open video: WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤" class="portfolio-cover" data-video="ZEZff4cU-58" role="button" tabindex="0">
+<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/ZEZff4cU-58/hqdefault.jpg'" src="https://i.ytimg.com/vi/ZEZff4cU-58/maxresdefault.jpg"/>
+<span class="portfolio-number">01</span>
+<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+</div>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤"></iframe>
+</div>
+<div class="portfolio-meta"><span class="portfolio-category">FILM / CINEMATOGRAPHY</span><span class="portfolio-year">2025</span></div>
+<h3 class="portfolio-title">WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤</h3>
+</article><article class="portfolio-card portfolio-card--02 reveal group">
+<div class="portfolio-media">
+<div aria-label="Open video: Droning Cabos CoastLine Reef" class="portfolio-cover" data-video="hQiWnZQHtc4" role="button" tabindex="0">
+<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/hQiWnZQHtc4/hqdefault.jpg'" src="https://i.ytimg.com/vi/hQiWnZQHtc4/maxresdefault.jpg"/>
+<span class="portfolio-number">02</span>
+<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+</div>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="Droning Cabos CoastLine Reef"></iframe>
+</div>
+<div class="portfolio-meta"><span class="portfolio-category">DRONEWORKS</span><span class="portfolio-year">2024</span></div>
+<h3 class="portfolio-title">Droning Cabos CoastLine Reef</h3>
+</article><article class="portfolio-card portfolio-card--03 reveal group">
+<div class="portfolio-media">
+<div aria-label="Open video: El Arco de Cabos San Lucas, BCS but vintage!" class="portfolio-cover" data-video="M-xMs__8t90" role="button" tabindex="0">
+<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/M-xMs__8t90/hqdefault.jpg'" src="https://i.ytimg.com/vi/M-xMs__8t90/maxresdefault.jpg"/>
+<span class="portfolio-number">03</span>
+<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+</div>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="El Arco de Cabos San Lucas, BCS but vintage!"></iframe>
+</div>
+<div class="portfolio-meta"><span class="portfolio-category">FILM / CINEMATOGRAPHY</span><span class="portfolio-year">2023</span></div>
+<h3 class="portfolio-title">El Arco de Cabos San Lucas, BCS but vintage!</h3>
+</article><article class="portfolio-card portfolio-card--04 reveal group">
+<div class="portfolio-media">
+<div aria-label="Open video: Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX" class="portfolio-cover" data-video="YmeDebNWPxk" role="button" tabindex="0">
+<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/YmeDebNWPxk/hqdefault.jpg'" src="https://i.ytimg.com/vi/YmeDebNWPxk/maxresdefault.jpg"/>
+<span class="portfolio-number">04</span>
+<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+</div>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX"></iframe>
+</div>
+<div class="portfolio-meta"><span class="portfolio-category">DRONEWORKS</span><span class="portfolio-year">2020</span></div>
+<h3 class="portfolio-title">Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX</h3>
+</article><article class="portfolio-card portfolio-card--05 reveal group">
+<div class="portfolio-media">
+<div aria-label="Open video: Cinematic Drone Top Down / CruiseShip Chase" class="portfolio-cover" data-video="EGUC1EOu0lU" role="button" tabindex="0">
+<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/EGUC1EOu0lU/hqdefault.jpg'" src="https://i.ytimg.com/vi/EGUC1EOu0lU/maxresdefault.jpg"/>
+<span class="portfolio-number">05</span>
+<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+</div>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="Cinematic Drone Top Down / CruiseShip Chase"></iframe>
+</div>
+<div class="portfolio-meta"><span class="portfolio-category">FILM / CINEMATOGRAPHY</span><span class="portfolio-year">2025</span></div>
+<h3 class="portfolio-title">Cinematic Drone Top Down / CruiseShip Chase</h3>
+</article><article class="portfolio-card portfolio-card--06 reveal group">
+<div class="portfolio-media">
+<div aria-label="Open video: Dronework For A Local Company In Tijuana" class="portfolio-cover" data-video="HlD-ugXKieo" role="button" tabindex="0">
+<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/HlD-ugXKieo/hqdefault.jpg'" src="https://i.ytimg.com/vi/HlD-ugXKieo/maxresdefault.jpg"/>
+<span class="portfolio-number">06</span>
+<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+</div>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="Dronework For A Local Company In Tijuana"></iframe>
+</div>
+<div class="portfolio-meta"><span class="portfolio-category">FILM / CINEMATOGRAPHY</span><span class="portfolio-year">2025</span></div>
+<h3 class="portfolio-title">Dronework For A Local Company In Tijuana</h3>
+</article></div>
+</div>
+</section><span aria-hidden="true" id="film"></span>
+<!-- Film -->
+
+<!-- Motion Design -->
+<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="motion-design">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">EXPLORE SOME OF OUR WORK</span>
+<h2 class="mt-2 font-display text-2xl text-foreground sm:text-3xl md:text-4xl">MOTION DESIGN</h2>
+</div>
+<p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="motionDescShort">2D/3D, animation, titles, VFX, graphics.</p>
+</div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/NAV2HUMH25k" title="skyrdy™ Visual Research Labs.">
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">skyrdy™ Visual Research Labs.</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/bCvhn3rff1I" title="Silvered Logo Intro For Lattice® Beauty Brands">
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Silvered Logo Intro For Lattice® Beauty Brands</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/3GU2Fa0nf6Q" title="Logo intro for a brand Tentant®">
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Logo intro for a brand Tentant®</h3>
+<p class="text-sm text-muted-foreground mt-1">2023</p>
+</div>
+</div>
+<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/qJFCCenK7xg" title="Branding Tentant®">
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Branding Tentant®</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Visual Research -->
+<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="visual-research">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">EXPLORE SOME OF OUR WORK</span>
+<h2 class="mt-2 font-display text-2xl text-foreground sm:text-3xl md:text-4xl">VISUAL RESEARCH</h2>
+</div>
+<p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="researchDescShort">Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.</p>
+</div>
+<div class="grid gap-8 md:grid-cols-2">
+<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/kzH9lbCw2y8" title="Trending">
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Trending</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/tKMjmkNGB3Q" title="Concept Burger Ad For Social Media Made With AE">
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Concept Burger Ad For Social Media Made With AE</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="about">
+<div class="mx-auto max-w-7xl">
+<div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="aboutStudio">ABOUT THE STUDIO</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="aboutTitle">SKY READY™ FOR YOUR NEXT AERIAL PROJECT</h2>
+<p class="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg" data-i18n="aboutDesc">At skyrdy™ (sky ready®), we combine aerial drone videography, motion graphics, and post-production to create projects tailored to our client needs. We offer a range of drone services—ask about the right one for you!</p>
+<ul class="mt-8 space-y-3">
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi1">4K aerial cinematography</span>
+</li>
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi2">Motion graphics &amp; VFX</span>
+</li>
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi3">Color grading &amp; sound design</span>
+</li>
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi4">Fast turnaround for social content</span>
+</li>
+<li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
+<span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
+<span data-i18n="aboutLi5">Bilingual production support</span>
+</li>
+</ul>
+</div>
+<div class="relative flex aspect-square items-center justify-center rounded-3xl border border-border bg-secondary/20 p-8">
+<div class="w-full h-full max-w-sm flex items-center justify-center">
+<img alt="SKYRDY Logo" class="w-full h-full object-contain" src="Colored%20Logo.png"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Story Section -->
+<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="story">
+<div class="mx-auto max-w-6xl">
+<div class="mb-12 border-b border-border pb-6 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.28em] text-accent" data-i18n="storyLabel">THE STORY BEHIND SKY READY™</span>
+<h2 class="mt-3 font-hero uppercase text-foreground text-[clamp(58px,9vw,140px)] leading-[0.82] tracking-[-0.02em]">
+<span data-i18n="storyTitleLine1">FROM</span><br/><span data-i18n="storyTitleLine2">HIKE TO LAB</span>
+</h2>
+</div>
+<p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="storySubtitle">What started with a hike and a little Parrot drone slowly evolved into something much bigger.</p>
+</div>
+<div class="relative mt-16 ml-3 space-y-16 border-l border-border pl-8 sm:ml-4 sm:pl-10">
+<div class="reveal relative">
+<span class="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_16px_rgba(84,165,177,0.6)] sm:-left-[49px]"></span>
+<span class="font-display text-2xl text-accent sm:text-3xl">2014</span>
+<h3 class="mt-1 font-display text-5xl text-foreground sm:text-6xl md:text-7xl" data-i18n="storyTitle2014">THE FIRST FLIGHT</h3>
+<div class="mt-4 space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+<p data-i18n="story2014P1">We started Sky Ready™ back in 2014, when I was living abroad, surrounded by mountains and woods and spending a lot of time outdoors. I was a big "hiking aficionado," always looking for new ways to explore and document the places I was discovering. At some point, a simple idea came up: what if we could take a selfie from far away, or actually record everything around us while we were out exploring? That's when we did our research, found drones, and learned what they could do, and that's when we fell in love with them.</p>
+<p data-i18n="story2014P2">That curiosity led us to our first drone, a Parrot. We had no idea what we were doing. We didn't know photography, video, or filmmaking, and we definitely didn't know that flying a camera was going to turn into something much bigger. At the time, it was simply recreation, fun, and a way to record our hikes and the places we were exploring.</p>
+<p data-i18n="story2014P3">Then came our second drone, a Mavic Pro. That's when we realized something: we had a drone, but we had no idea what we were doing with photography or video.</p>
+<p data-i18n="story2014P4">We wanted to learn. An opportunity came up for me to study cinematography in Mexico City, so we moved to CDMX and enrolled at Facultad de Cine, in La Roma, to study film. We wanted to understand more than just how to fly. We wanted to learn how to create images, tell stories, work with light, movement, and composition, and ultimately understand how to use a camera as a storytelling tool.</p>
+</div>
+</div>
+<div class="reveal relative">
+<span class="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_16px_rgba(84,165,177,0.6)] sm:-left-[49px]"></span>
+<span class="font-display text-2xl text-accent sm:text-3xl">2017</span>
+<h3 class="mt-1 font-display text-5xl text-foreground sm:text-6xl md:text-7xl" data-i18n="storyTitle2017">THE BIGGER VISION</h3>
+<div class="mt-4 space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+<p data-i18n="story2017P1">We eventually stepped up to a high-end Inspire 2, got licensed and insured, and officially became SKYRDY™ — short for Sky Ready — Drone Video + Motion Lab. In 2017, we established SKYRDY™ in Mexico City and began our journey into the film and television industry.</p>
+<p data-i18n="story2017P2">For a few months, things started moving in the direction we had dreamed about. Then the earthquake hit. Film and television production came to a halt, and once again, life forced us to change course. I relocated to Baja, where I continued working with local talent, taking on smaller gigs, and finding ways to keep creating.</p>
+</div>
+</div>
+<div class="reveal relative">
+<span class="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_16px_rgba(84,165,177,0.6)] sm:-left-[49px]"></span>
+<span class="font-display text-2xl text-accent sm:text-3xl">2020</span>
+<h3 class="mt-1 font-display text-5xl text-foreground sm:text-6xl md:text-7xl" data-i18n="storyTitle2020">WE KEEP LEARNING</h3>
+<div class="mt-4 space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+<p data-i18n="story2020P1">Then, in 2020, the pandemic hit. This time, we had to stop for a while. But stopping didn't mean giving up. We kept learning. We completed a couple of online courses and turned to what we jokingly call "YouTube University," and continued teaching ourselves, experimenting, practicing, and figuring things out one project at a time.</p>
+<p data-i18n="story2020P2">Along the way, we grew the team, expanded our services, improved our equipment, refined our skills, and, most importantly, developed a much clearer vision of what SKYRDY™ could become.</p>
+</div>
+</div>
+<div class="reveal relative">
+<span class="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_16px_rgba(84,165,177,0.6)] sm:-left-[49px]"></span>
+<span class="font-display text-2xl text-accent sm:text-3xl" data-i18n="storyTodayLabel">TODAY</span>
+<h3 class="mt-1 font-display text-5xl text-foreground sm:text-6xl md:text-7xl" data-i18n="storyTitleToday">WE KEEP FLYING</h3>
+<div class="mt-4 space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+<p data-i18n="storyTodayP1">What started with a hike and a little Parrot drone slowly evolved into something much bigger. Today, we are relaunching something that was once just a dream. After all these years, that dream is still alive and well. And we're still doing what we've always loved:</p>
+<p class="font-display text-xl tracking-wide text-foreground sm:text-2xl" data-i18n="storyMantra">Keep learning. Keep growing. Keep experimenting. Keep filming. Keep flying.</p>
+<p class="font-semibold text-foreground" data-i18n="storyTagline">SKYRDY™ — Drone Video + Motion Lab.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="contact">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 border-b border-border pb-6">
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="readyStart">READY TO START A PROJECT?</span>
+<h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="bookCall">READY TO FLY?!</h2>
+</div>
+<div class="grid gap-12 lg:grid-cols-2">
+<div>
+<p class="text-lg leading-relaxed text-muted-foreground" data-i18n="contactDesc">Tell us about your project or brand...</p>
+<div class="mt-8">
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="emailLabel">EMAIL</span>
+<a class="mt-2 block text-xl text-foreground transition-colors hover:text-accent" href="mailto:skyrdymx@gmail.com">skyrdymx@gmail.com</a>
+</div>
+</div>
+<div class="rounded-3xl border border-border bg-card p-6 sm:p-8">
+<form action="https://api.web3forms.com/submit" class="space-y-6" method="POST">
+<input name="access_key" type="hidden" value="11120844-e150-41b2-ab28-27c5d7dc6595"/>
+<input name="subject" type="hidden" value="New Inquiry from skyrdy.com"/>
+<div class="grid gap-6 sm:grid-cols-3">
+<div>
+<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formName" for="name">Name</label>
+<input class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="formNamePh" id="name" name="name" placeholder="Your name" required="">
+</input></div>
+<div>
+<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formEmail" for="email">Email</label>
+<input class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" id="email" name="email" placeholder="you@company.com" required="" type="email">
+</input></div>
+<div>
+<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formPhone" for="phone">Phone</label>
+<input class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="formPhonePh" id="phone" inputmode="tel" name="phone" pattern="[0-9+\-\s()]{7,20}" placeholder="+1 (555) 123-4567" required="" title="Enter a valid phone number (digits only, 7-20 characters)" type="tel"/>
+</div>
+</div>
+<div class="grid gap-6 sm:grid-cols-2">
+<div>
+<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formService" for="projectType">Service</label>
+<select class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" id="projectType" name="projectType">
+<option data-i18n="formSelectService" value="">Select a service</option>
+<option value="Droneworks">Droneworks</option>
+<option value="Film">Film</option>
+<option value="Motion Design">Motion Design</option>
+<option value="Visual Research">Visual Research</option>
+<option value="Not sure yet">Not sure yet</option>
+</select>
+</div>
+<div>
+<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formLocation" for="location">Location</label>
+<input class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="formLocationPh" id="location" name="location" placeholder="City, State" required=""/>
+</div>
+</div>
+<div>
+<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formMessage" for="message">Message</label>
+<textarea class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="formMessagePh" id="message" name="message" placeholder="Tell us more about your project or brand..." required="" rows="5"></textarea>
+</div>
+<button class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 py-4 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90" data-i18n="sendMsg" type="submit">
+REACH OUT TO US
+</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="bg-background px-6 pb-24 lg:px-8" id="newsletter">
+<div class="mx-auto max-w-7xl">
+<div class="rounded-3xl border border-border bg-card px-6 py-14 text-center sm:px-12 sm:py-16">
+<span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="newsletterEyebrow">WANNA STAY IN THE LOOP ?</span>
+<h2 class="mt-3 font-display text-3xl text-foreground sm:text-4xl md:text-5xl" data-i18n="newsletterTitle">GET NEW WORK IN YOUR INBOX</h2>
+<p class="mt-4 text-sm text-muted-foreground sm:text-base" data-i18n="newsletterDesc">LETS KEEP YOU UPDATED, REELS, BTS AND NEWS!.</p>
+<form action="https://api.web3forms.com/submit" class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row" method="POST">
+<input name="access_key" type="hidden" value="11120844-e150-41b2-ab28-27c5d7dc6595"/>
+<input name="subject" type="hidden" value="Newsletter signup from skyrdy.com"/>
+<label class="sr-only" for="newsletterEmail">Email</label>
+<input class="w-full flex-1 rounded-xl border border-input bg-background px-5 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="newsletterPh" id="newsletterEmail" name="email" placeholder="you@email.com" required="" type="email">
+<button class="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90 whitespace-nowrap" data-i18n="newsletterBtn" type="submit">
+SUBSCRIBE
+</button>
+</input></form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="border-t border-border bg-background px-6 py-12 lg:px-8">
+<div class="mx-auto max-w-7xl flex flex-col items-center gap-4 border-b border-border pb-10 text-center">
+<p class="font-semibold uppercase tracking-widest text-foreground" data-i18n="followUs">Let's get social, connect with us.</p>
+<div class="flex items-center justify-center gap-4">
+<a aria-label="Instagram" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent" href="https://www.instagram.com/skyrdy" rel="noopener noreferrer" target="_blank">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" width="20" x="2" y="2"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" fill="currentColor" r="1" stroke="none"></circle></svg>
+</a>
+<a aria-label="Facebook" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent" href="https://www.facebook.com/skyrdy" rel="noopener noreferrer" target="_blank">
+<svg fill="currentColor" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.28-.04-1.25-.12-2.37-.12-2.35 0-3.95 1.43-3.95 4.06v2.35H7.6V13h2.78v8h3.12z"></path></svg>
+</a>
+<a aria-label="YouTube" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent" href="https://www.youtube.com/@skyrdy" rel="noopener noreferrer" target="_blank">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="14" rx="4" width="20" x="2" y="5"></rect><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"></path></svg>
+</a>
+</div>
+</div>
+<div class="mx-auto mt-8 flex max-w-7xl flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
+<p>© 2026 SKYRDY™ - sky ready®. <span data-i18n="footerRights">All rights reserved.</span></p>
+<p class="uppercase tracking-widest" data-i18n="footerSub">Drone Video + Motion Lab</p>
+</div>
+</footer>
+
+<script>
+// Load each YouTube player only when intentionally opened.
+document.querySelectorAll('.portfolio-cover').forEach(function(cover){
+  function openVideo(){
+    const media=cover.closest('.portfolio-media');
+    if(media.classList.contains('is-playing')) return;
+    const iframe=media.querySelector('.portfolio-embed');
+    const id=cover.dataset.video;
+    iframe.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1';
+    media.classList.add('is-playing');
+  }
+  cover.addEventListener('click',openVideo);
+  cover.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openVideo();}});
+});
+</script>
+</body>
+</html>
