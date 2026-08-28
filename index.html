@@ -55,6 +55,7 @@ const translations = {
         navStory: "Our Story",
         navContact: "Contact",
         navBook: "Start a project",
+        exploreWorkBtn: "Explore the work",
         heroSubtitle: "VISUAL RESEARCH LAB.",
         heroDesc: "DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.",
         portfolioBtn: "PORTFOLIO",
@@ -133,6 +134,7 @@ const translations = {
         navStory: "Nuestra Historia",
         navContact: "Contacto",
         navBook: "Iniciar un proyecto",
+        exploreWorkBtn: "Explorar el trabajo",
         heroSubtitle: "LABORATORIO DE INVESTIGACIÓN VISUAL.",
         heroDesc: "IMPULSADOS POR LA INVESTIGACIÓN VISUAL, CREAMOS IMÁGENES AÉREAS DE CALIDAD CINEMATOGRÁFICA, NARRATIVA VISUAL Y MOTION DESIGN PARA DAR FORMA A CÓMO SE VE TU PROYECTO.",
         portfolioBtn: "PORTAFOLIO",
@@ -349,6 +351,56 @@ document.addEventListener('DOMContentLoaded', () => {
 @media (max-width: 640px) {
     .hud-tag { display: none; }
 }
+
+/* Hero showreel background */
+.showreel-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 177.78vh; /* 16:9 ratio, ensures full cover regardless of viewport */
+    height: 100vh;
+    min-width: 100%;
+    min-height: 56.25vw;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border: 0;
+    opacity: 0.55;
+    filter: saturate(0.85) brightness(0.75);
+}
+.showreel-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.75) 55%, rgba(10,10,10,.95) 100%),
+        radial-gradient(circle at center, transparent 30%, rgba(10,10,10,.5) 100%);
+}
+@media (max-width: 768px) {
+    .showreel-bg { opacity: 0.3; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .showreel-bg { display: none; }
+}
+
+/* Hero split video panel (right column) */
+.hero-video-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 177.78vh; /* 16:9 video ratio, sized off full height so it fully covers the panel */
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+    filter: saturate(0.9) brightness(0.85);
+}
+.hero-video-panel-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(10,10,10,.85) 0%, rgba(10,10,10,.15) 18%, transparent 40%);
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-video-panel { display: none; }
+}
 </style>
 </head>
 <body class="bg-background text-foreground antialiased selection:bg-foreground selection:text-background font-sans overflow-x-hidden">
@@ -396,51 +448,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <main>
 <!-- Hero Section -->
-<section class="relative flex min-h-screen flex-col justify-between overflow-hidden bg-background px-6 pt-32 pb-12 lg:px-8">
-<div class="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:radial-gradient(circle_at_center,var(--foreground)_1px,transparent_1px)] [background-size:24px_24px]"></div>
-<div class="hero-hud pointer-events-none absolute inset-0" aria-hidden="true">
-<span class="hud-frame">
-<span class="hud-corner hud-corner-tl"></span>
-<span class="hud-corner hud-corner-tr"></span>
-<span class="hud-corner hud-corner-bl"></span>
-<span class="hud-corner hud-corner-br"></span>
-<span class="hud-scanline"></span>
-<span class="hud-tag hud-tag-tl">SKYRDY // AERIAL</span>
-<span class="hud-tag hud-tag-br">VISUAL RESEARCH LAB</span>
-</span>
-</div>
-<div class="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center text-center">
-<div class="w-full max-w-5xl">
-<h1 class="font-hero text-6xl sm:text-8xl tracking-wider text-foreground flex items-center justify-center">
-SKYRDY<span class="self-start -translate-y-2 sm:-translate-y-4 text-3xl sm:text-5xl ml-1 font-hero text-[#7A1F2B]">X</span>
+<section class="relative overflow-hidden bg-background pt-24 lg:pt-0">
+<div class="grid min-h-screen lg:grid-cols-[44%_56%]">
+
+<!-- LEFT: text content -->
+<div class="relative z-10 flex flex-col justify-center px-6 py-16 lg:px-16 lg:py-0">
+<span class="font-display text-xs font-black tracking-[0.28em] text-accent sm:text-sm">SKYRDY™ / VISUAL RESEARCH LAB.</span>
+<h1 class="mt-4 font-hero uppercase leading-[0.85] tracking-tight text-foreground text-[clamp(48px,9vw,108px)]">
+<span class="block">VISUAL</span>
+<span class="block text-accent">RESEARCH</span>
+<span class="block">LAB<span class="hero-dot ml-1 inline-block w-[0.5em] h-[0.5em] rounded-full bg-accent align-baseline"></span></span>
 </h1>
-<p class="mt-2 font-hero text-2xl sm:text-4xl md:text-5xl tracking-[0.25em] text-foreground" data-i18n="heroSubtitle">VISUAL RESEARCH LAB.</p>
+<p class="mt-6 max-w-md text-sm sm:text-base uppercase tracking-[0.15em] text-muted-foreground font-bold" data-i18n="heroDesc">
+DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.
+</p>
+<div class="mt-8 flex flex-wrap items-center gap-4">
+<a href="#contact" class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-all hover:bg-accent/90"><span data-i18n="navBook">Start a project</span> ↗</a>
+<a href="#services" class="inline-flex items-center gap-2 rounded-full border border-foreground/30 px-6 py-3 text-sm font-black uppercase tracking-widest text-foreground transition-all hover:bg-foreground/10"><span data-i18n="exploreWorkBtn">Explore the work</span> ↓</a>
+</div>
+</div>
+
+<!-- RIGHT: video panel -->
+<div class="relative hidden overflow-hidden lg:block">
+<iframe class="hero-video-panel" src="https://www.youtube-nocookie.com/embed/ZEZff4cU-58?autoplay=1&mute=1&controls=0&loop=1&playlist=ZEZff4cU-58&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1" title="" frameborder="0" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+<div class="hero-video-panel-overlay"></div>
+</div>
+
 </div>
 
 <!-- Services quick links -->
-<div class="mt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-5 text-sm sm:text-lg font-black uppercase tracking-widest text-muted-foreground">
-<a href="#droneworks" class="hover:text-foreground transition-colors">DRONEWORKS</a>
+<div class="relative z-10 flex flex-wrap items-center justify-center gap-2 px-6 pb-16 text-base font-black uppercase tracking-widest text-foreground sm:gap-6 sm:text-xl lg:justify-start lg:px-16">
+<a href="#droneworks" class="hover:text-accent transition-colors">DRONEWORKS</a>
 <span>•</span>
-<a href="#film" class="hover:text-foreground transition-colors">FILM</a>
+<a href="#film" class="hover:text-accent transition-colors">FILM</a>
 <span>•</span>
-<a href="#motion-design" class="hover:text-foreground transition-colors">MOTION DESIGN</a>
+<a href="#motion-design" class="hover:text-accent transition-colors">MOTION DESIGN</a>
 <span>•</span>
-<a href="#visual-research" class="hover:text-foreground transition-colors">VISUAL RESEARCH</a>
-</div>
-
-<p class="mt-4 text-sm sm:text-base uppercase tracking-[0.2em] text-muted-foreground font-bold" data-i18n="heroDesc">
-DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.
-</p>
-
-<div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-<a href="#contact" class="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-all hover:bg-foreground/90" data-i18n="navBook">Start a project</a>
-<a href="#services" class="inline-flex items-center gap-2 rounded-full border border-foreground/30 px-6 py-3 text-sm font-black uppercase tracking-widest text-foreground transition-all hover:bg-foreground/10" data-i18n="portfolioBtn">PORTFOLIO</a>
-</div>
-
-<div class="mt-16 text-center">
-<a href="#services" class="block text-xs sm:text-sm uppercase tracking-[0.3em] text-foreground mb-3 font-black hover:text-accent transition-colors" data-i18n="exploreServices">EXPLORE OUR SERVICES</a>
-<a href="#services" class="inline-block text-foreground text-lg animate-bounce hover:text-accent transition-colors">↓</a>
-</div>
+<a href="#visual-research" class="hover:text-accent transition-colors">VISUAL RESEARCH</a>
 </div>
 
 <!-- Marquee Band -->
@@ -476,29 +520,29 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 </div>
 
 <div class="divide-y divide-border border-t border-border">
-<a href="#droneworks" class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6">
-<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">01</span>
-<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Droneworks</h3>
-<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="droneworksDesc">Licensed drone operations for cinematic aerials and location-driven work across hospitality, architecture, real estate, destinations, and more. We take projects beyond the ground.</p>
-<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+<a href="#droneworks" class="group grid grid-cols-[40px_1fr_24px] gap-x-4 gap-y-3 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6 sm:gap-y-0">
+<span class="col-start-1 row-start-1 font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">01</span>
+<h3 class="col-start-2 row-start-1 font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Droneworks</h3>
+<p class="col-start-1 col-span-3 row-start-2 text-xs leading-relaxed text-muted-foreground sm:col-start-3 sm:col-span-1 sm:row-start-1 sm:text-sm" data-i18n="droneworksDesc">Licensed drone operations for cinematic aerials and location-driven work across hospitality, architecture, real estate, destinations, and more. We take projects beyond the ground.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4">→</span>
 </a>
-<a href="#film" class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6">
-<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">02</span>
-<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Film</h3>
-<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="filmDesc">Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.</p>
-<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+<a href="#film" class="group grid grid-cols-[40px_1fr_24px] gap-x-4 gap-y-3 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6 sm:gap-y-0">
+<span class="col-start-1 row-start-1 font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">02</span>
+<h3 class="col-start-2 row-start-1 font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Film</h3>
+<p class="col-start-1 col-span-3 row-start-2 text-xs leading-relaxed text-muted-foreground sm:col-start-3 sm:col-span-1 sm:row-start-1 sm:text-sm" data-i18n="filmDesc">Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4">→</span>
 </a>
-<a href="#motion-design" class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6">
-<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">03</span>
-<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Motion Design</h3>
-<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="motionDesc">Motion graphics, titles, animations, and visual systems designed to give your ideas dynamic movement and presence.</p>
-<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+<a href="#motion-design" class="group grid grid-cols-[40px_1fr_24px] gap-x-4 gap-y-3 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6 sm:gap-y-0">
+<span class="col-start-1 row-start-1 font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">03</span>
+<h3 class="col-start-2 row-start-1 font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Motion Design</h3>
+<p class="col-start-1 col-span-3 row-start-2 text-xs leading-relaxed text-muted-foreground sm:col-start-3 sm:col-span-1 sm:row-start-1 sm:text-sm" data-i18n="motionDesc">Motion graphics, titles, animations, and visual systems designed to give your ideas dynamic movement and presence.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4">→</span>
 </a>
-<a href="#visual-research" class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6">
-<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">04</span>
-<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Visual Research</h3>
-<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="researchDesc">Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.</p>
-<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+<a href="#visual-research" class="group grid grid-cols-[40px_1fr_24px] gap-x-4 gap-y-3 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6 sm:gap-y-0">
+<span class="col-start-1 row-start-1 font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">04</span>
+<h3 class="col-start-2 row-start-1 font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Visual Research</h3>
+<p class="col-start-1 col-span-3 row-start-2 text-xs leading-relaxed text-muted-foreground sm:col-start-3 sm:col-span-1 sm:row-start-1 sm:text-sm" data-i18n="researchDesc">Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4">→</span>
 </a>
 </div>
 </div>
@@ -514,8 +558,8 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 </div>
 <p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="droneworksDescShort">Aerial cinematography, aerial photography, FPV, exploration & more services.</p>
 </div>
-<div class="grid gap-8 md:grid-cols-2">
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="grid gap-6 sm:grid-cols-12">
+<div class="reveal group sm:col-span-7 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -536,7 +580,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 <p class="text-sm text-muted-foreground mt-1">2024</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-5 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -571,8 +615,8 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 </div>
 <p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="filmDescShort">Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.</p>
 </div>
-<div class="grid gap-8 md:grid-cols-2">
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="grid gap-6 sm:grid-cols-12">
+<div class="reveal group sm:col-span-7 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -593,7 +637,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 <p class="text-sm text-muted-foreground mt-1">2023</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-5 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -614,7 +658,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-6 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -635,7 +679,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-6 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -670,8 +714,8 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 </div>
 <p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="motionDescShort">2D/3D, animation, titles, VFX, graphics.</p>
 </div>
-<div class="grid gap-8 md:grid-cols-2">
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="grid gap-6 sm:grid-cols-12">
+<div class="reveal group sm:col-span-7 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -692,7 +736,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-5 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -713,7 +757,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-6 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -734,7 +778,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 <p class="text-sm text-muted-foreground mt-1">2023</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-6 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -769,8 +813,8 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 </div>
 <p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="researchDescShort">Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.</p>
 </div>
-<div class="grid gap-8 md:grid-cols-2">
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="grid gap-6 sm:grid-cols-12">
+<div class="reveal group sm:col-span-7 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
@@ -791,7 +835,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-5 rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
 <iframe 
     class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
