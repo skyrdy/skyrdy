@@ -279,6 +279,10 @@ function toggleLanguage() {
         }
     });
 
+    if (typeof resetChatForLanguage === 'function') {
+        resetChatForLanguage();
+    }
+
 }
 
 function toggleMobileMenu() {
@@ -362,15 +366,27 @@ function initChatWidget() {
     let hasStarted = false;
     let awaitingText = false;
 
+    function startChat() {
+        messagesEl.innerHTML = '';
+        stepIndex = 0;
+        answers = {};
+        appendMessage('assistant', t('chatGreeting'));
+        setTimeout(() => askStep(), 400);
+        hasStarted = true;
+    }
+
+    window.resetChatForLanguage = function () {
+        if (!hasStarted) return;
+        startChat();
+    };
+
     function openChat() {
         chatWindow.classList.remove('hidden');
         chatWindow.classList.add('flex');
         iconOpen.classList.add('hidden');
         iconClose.classList.remove('hidden');
         if (!hasStarted) {
-            appendMessage('assistant', t('chatGreeting'));
-            setTimeout(() => askStep(), 400);
-            hasStarted = true;
+            startChat();
         }
         if (awaitingText) input.focus();
     }
@@ -699,7 +715,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 </div>
 
 <!-- Services quick links -->
-<div class="relative z-10 flex flex-wrap items-center justify-center gap-2 px-6 pb-16 text-xl font-black uppercase tracking-widest text-foreground sm:gap-6 sm:text-3xl lg:justify-start lg:px-16">
+<div class="relative z-10 flex flex-wrap items-center justify-center gap-3 px-6 pb-16 text-2xl font-black uppercase tracking-widest text-foreground sm:gap-6 sm:text-4xl lg:px-16">
 <a href="#droneworks" class="hover:text-accent transition-colors">DRONEWORKS</a>
 <span>•</span>
 <a href="#film" class="hover:text-accent transition-colors">FILM</a>
