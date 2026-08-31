@@ -56,6 +56,29 @@ const translations = {
         navContact: "Contact",
         navBook: "Start a project",
         exploreWorkBtn: "Explore the work",
+        chatTitle: "SKYRDY ASSISTANT",
+        chatPlaceholder: "Ask about a project...",
+        chatGreeting: "Hey! 👋 Ready to get your project off the ground? Let's start by learning a little more about your project.",
+        chatError: "Something went wrong on my end — try again in a moment, or reach out directly through the contact form.",
+        chatQService: "Which service fits your project best?",
+        chatOptService1: "Droneworks",
+        chatOptService2: "Film",
+        chatOptService3: "Motion Design",
+        chatOptService4: "Visual Research",
+        chatOptService5: "Not sure yet",
+        chatQLocation: "Where's the project located?",
+        chatQTimeline: "When are you looking to start?",
+        chatOptTimeline1: "ASAP",
+        chatOptTimeline2: "Within a month",
+        chatOptTimeline3: "1\u20133 months",
+        chatOptTimeline4: "Just exploring",
+        chatQDetails: "Tell me a bit more about the project.",
+        chatQName: "What's your name?",
+        chatQEmail: "And your email, so we can get back to you?",
+        chatChooseOption: "Pick an option above",
+        chatSubmitting: "Got it \u2014 sending this over now...",
+        chatSuccess: "Sent! We'll get back to you soon. Thanks for reaching out.",
+        chatSubmitError: "That didn't go through \u2014 please use the contact form below instead.",
         heroSubtitle: "VISUAL RESEARCH LAB.",
         heroDesc: "DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.",
         portfolioBtn: "PORTFOLIO",
@@ -135,6 +158,29 @@ const translations = {
         navContact: "Contacto",
         navBook: "Iniciar un proyecto",
         exploreWorkBtn: "Explorar el trabajo",
+        chatTitle: "ASISTENTE SKYRDY",
+        chatPlaceholder: "Pregunta sobre tu proyecto...",
+        chatGreeting: "¡Hola! 👋 ¿Listo para iniciar tu proyecto? Empecemos por conocer un poco más sobre él.",
+        chatError: "Algo salió mal de mi lado — intenta de nuevo en un momento, o contáctanos directamente a través del formulario.",
+        chatQService: "¿Qué servicio se ajusta mejor a tu proyecto?",
+        chatOptService1: "Droneworks",
+        chatOptService2: "Cine",
+        chatOptService3: "Motion Design",
+        chatOptService4: "Investigación Visual",
+        chatOptService5: "Aún no lo sé",
+        chatQLocation: "¿Dónde está ubicado el proyecto?",
+        chatQTimeline: "¿Cuándo te gustaría comenzar?",
+        chatOptTimeline1: "Lo antes posible",
+        chatOptTimeline2: "En el próximo mes",
+        chatOptTimeline3: "1\u20133 meses",
+        chatOptTimeline4: "Solo explorando",
+        chatQDetails: "Cuéntame un poco más sobre el proyecto.",
+        chatQName: "¿Cuál es tu nombre?",
+        chatQEmail: "¿Y tu correo, para poder contactarte?",
+        chatChooseOption: "Elige una opción arriba",
+        chatSubmitting: "Listo \u2014 enviando esto ahora...",
+        chatSuccess: "¡Enviado! Nos pondremos en contacto pronto. Gracias por escribirnos.",
+        chatSubmitError: "Eso no se pudo enviar \u2014 por favor usa el formulario de contacto de abajo.",
         heroSubtitle: "LABORATORIO DE INVESTIGACIÓN VISUAL.",
         heroDesc: "IMPULSADOS POR LA INVESTIGACIÓN VISUAL, CREAMOS IMÁGENES AÉREAS DE CALIDAD CINEMATOGRÁFICA, NARRATIVA VISUAL Y MOTION DESIGN PARA DAR FORMA A CÓMO SE VE TU PROYECTO.",
         portfolioBtn: "PORTAFOLIO",
@@ -279,7 +325,166 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         revealEls.forEach(el => el.classList.add('visible'));
     }
+
+    initChatWidget();
 });
+
+// ---- Chat Widget: Guided Project Quiz (no AI, no backend, free) ----
+const WEB3FORMS_KEY = '11120844-e150-41b2-ab28-27c5d7dc6595';
+
+function initChatWidget() {
+    const toggleBtn = document.getElementById('chatToggleBtn');
+    const closeBtn = document.getElementById('chatCloseBtn');
+    const chatWindow = document.getElementById('chatWindow');
+    const iconOpen = document.getElementById('chatIconOpen');
+    const iconClose = document.getElementById('chatIconClose');
+    const messagesEl = document.getElementById('chatMessages');
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('chatInput');
+
+    if (!toggleBtn || !form) return;
+
+    function t(key) {
+        return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+    }
+
+    const steps = [
+        { key: 'service', qKey: 'chatQService', type: 'buttons', optKey: 'chatOptService' },
+        { key: 'location', qKey: 'chatQLocation', type: 'text' },
+        { key: 'timeline', qKey: 'chatQTimeline', type: 'buttons', optKey: 'chatOptTimeline' },
+        { key: 'details', qKey: 'chatQDetails', type: 'text' },
+        { key: 'name', qKey: 'chatQName', type: 'text' },
+        { key: 'email', qKey: 'chatQEmail', type: 'text' },
+    ];
+
+    let stepIndex = 0;
+    let answers = {};
+    let hasStarted = false;
+    let awaitingText = false;
+
+    function openChat() {
+        chatWindow.classList.remove('hidden');
+        chatWindow.classList.add('flex');
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+        if (!hasStarted) {
+            appendMessage('assistant', t('chatGreeting'));
+            setTimeout(() => askStep(), 400);
+            hasStarted = true;
+        }
+        if (awaitingText) input.focus();
+    }
+
+    function closeChat() {
+        chatWindow.classList.add('hidden');
+        chatWindow.classList.remove('flex');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        chatWindow.classList.contains('hidden') ? openChat() : closeChat();
+    });
+    closeBtn.addEventListener('click', closeChat);
+
+    function appendMessage(role, text) {
+        const bubble = document.createElement('div');
+        bubble.className = role === 'user'
+            ? 'ml-auto max-w-[80%] rounded-2xl rounded-br-sm bg-accent px-3 py-2 text-background'
+            : 'mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-secondary/40 px-3 py-2 text-foreground';
+        bubble.textContent = text;
+        messagesEl.appendChild(bubble);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        return bubble;
+    }
+
+    function appendButtons(options) {
+        const wrap = document.createElement('div');
+        wrap.className = 'mr-auto flex flex-wrap gap-2';
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = opt;
+            btn.className = 'rounded-full border border-border px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-foreground transition-colors hover:border-accent hover:text-accent';
+            btn.addEventListener('click', () => {
+                wrap.remove();
+                handleAnswer(opt);
+            });
+            wrap.appendChild(btn);
+        });
+        messagesEl.appendChild(wrap);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function askStep() {
+        if (stepIndex >= steps.length) {
+            submitLead();
+            return;
+        }
+        const step = steps[stepIndex];
+        appendMessage('assistant', t(step.qKey));
+        if (step.type === 'buttons') {
+            awaitingText = false;
+            input.disabled = true;
+            input.placeholder = t('chatChooseOption');
+            const opts = [1, 2, 3, 4, 5].map(n => t(step.optKey + n)).filter(o => o && !o.startsWith('chatOpt'));
+            setTimeout(() => appendButtons(opts), 200);
+        } else {
+            awaitingText = true;
+            input.disabled = false;
+            input.placeholder = t('chatPlaceholder');
+            input.focus();
+        }
+    }
+
+    function handleAnswer(value) {
+        appendMessage('user', value);
+        answers[steps[stepIndex].key] = value;
+        stepIndex++;
+        setTimeout(() => askStep(), 350);
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!awaitingText) return;
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        handleAnswer(text);
+    });
+
+    async function submitLead() {
+        input.disabled = true;
+        input.placeholder = '';
+        appendMessage('assistant', t('chatSubmitting'));
+
+        try {
+            const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({
+                    access_key: WEB3FORMS_KEY,
+                    subject: 'New chat widget lead — SKYRDY',
+                    from_name: 'SKYRDY Chat Widget',
+                    Service: answers.service || '',
+                    Location: answers.location || '',
+                    Timeline: answers.timeline || '',
+                    'Project details': answers.details || '',
+                    Name: answers.name || '',
+                    Email: answers.email || '',
+                }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                appendMessage('assistant', t('chatSuccess'));
+            } else {
+                appendMessage('assistant', t('chatSubmitError'));
+            }
+        } catch (err) {
+            appendMessage('assistant', t('chatSubmitError'));
+        }
+    }
+}
 </script>
 <style>
 .reveal {
@@ -401,6 +606,23 @@ document.addEventListener('DOMContentLoaded', () => {
 @media (prefers-reduced-motion: reduce) {
     .hero-video-panel { display: none; }
 }
+
+/* Chat widget */
+.chat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: rgba(84, 165, 177, 0.8);
+    animation: chat-dot-bounce 1.2s ease-in-out infinite;
+}
+.chat-dot:nth-child(2) { animation-delay: 0.15s; }
+.chat-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes chat-dot-bounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+    30% { transform: translateY(-4px); opacity: 1; }
+}
+#chatMessages::-webkit-scrollbar { width: 6px; }
+#chatMessages::-webkit-scrollbar-thumb { background: rgba(84,165,177,0.4); border-radius: 6px; }
 </style>
 </head>
 <body class="bg-background text-foreground antialiased selection:bg-foreground selection:text-background font-sans overflow-x-hidden">
@@ -1072,6 +1294,33 @@ SUBSCRIBE
 <p class="uppercase tracking-widest" data-i18n="footerSub">Drone Video + Motion Lab</p>
 </div>
 </footer>
+
+<!-- Chat Agent Widget -->
+<div id="chatWidget" class="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+
+<!-- Chat window -->
+<div id="chatWindow" class="hidden w-[90vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl" style="height: min(70vh, 560px);">
+<div class="flex items-center justify-between border-b border-border bg-secondary/30 px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-accent"></span>
+<span class="font-display text-sm tracking-widest text-foreground" data-i18n="chatTitle">SKYRDY ASSISTANT</span>
+</div>
+<button id="chatCloseBtn" type="button" aria-label="Close chat" class="text-muted-foreground transition-colors hover:text-foreground">✕</button>
+</div>
+<div id="chatMessages" class="flex-1 space-y-3 overflow-y-auto px-4 py-4 text-sm"></div>
+<form id="chatForm" class="flex items-center gap-2 border-t border-border p-3">
+<input id="chatInput" type="text" autocomplete="off" data-i18n-placeholder="chatPlaceholder" placeholder="Ask about a project..." class="flex-1 rounded-full border border-border bg-secondary/20 px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none" />
+<button type="submit" aria-label="Send" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-background transition-colors hover:bg-accent/90">↑</button>
+</form>
+</div>
+
+<!-- Toggle button -->
+<button id="chatToggleBtn" type="button" aria-label="Open chat" class="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-background shadow-2xl transition-transform hover:scale-105">
+<svg id="chatIconOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+<svg id="chatIconClose" class="hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+</button>
+
+</div>
 
 </body>
 </html>
