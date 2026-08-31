@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-
-<html class="scroll-smooth" lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<link data-precedence="default" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700;900&amp;display=swap" data-precedence="default"/>
 <title>SKYRDY™ — Drone Video + Motion Lab</title>
-<meta content="SKYRDY" name="author"/>
-<meta content="SKYRDY" property="og:site_name"/>
-<meta content="@skyrdy" name="twitter:site"/>
-<meta content="SKYRDY™ combines aerial drone videography, motion graphics, and post-production to create projects tailored to your needs." name="description"/>
+<meta name="author" content="SKYRDY"/>
+<meta property="og:site_name" content="SKYRDY"/>
+<meta name="twitter:site" content="@skyrdy"/>
+<meta name="description" content="SKYRDY™ combines aerial drone videography, motion graphics, and post-production to create projects tailored to your needs."/>
+
 <!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -55,6 +55,30 @@ const translations = {
         navStory: "Our Story",
         navContact: "Contact",
         navBook: "Start a project",
+        exploreWorkBtn: "Explore the work",
+        chatTitle: "SKYRDY ASSISTANT",
+        chatPlaceholder: "Ask about a project...",
+        chatGreeting: "Hey! 👋 Ready to get your project off the ground? Let's start by learning a little more about your project.",
+        chatError: "Something went wrong on my end — try again in a moment, or reach out directly through the contact form.",
+        chatQService: "Which service fits your project best?",
+        chatOptService1: "Droneworks",
+        chatOptService2: "Film",
+        chatOptService3: "Motion Design",
+        chatOptService4: "Visual Research",
+        chatOptService5: "Not sure yet",
+        chatQLocation: "Where's the project located?",
+        chatQTimeline: "When are you looking to start?",
+        chatOptTimeline1: "ASAP",
+        chatOptTimeline2: "Within a month",
+        chatOptTimeline3: "1\u20133 months",
+        chatOptTimeline4: "Just exploring",
+        chatQDetails: "Tell me a bit more about the project.",
+        chatQName: "What's your name?",
+        chatQEmail: "And your email, so we can get back to you?",
+        chatChooseOption: "Pick an option above",
+        chatSubmitting: "Got it \u2014 sending this over now...",
+        chatSuccess: "Sent! We'll get back to you soon. Thanks for reaching out.",
+        chatSubmitError: "That didn't go through \u2014 please use the contact form below instead.",
         heroSubtitle: "VISUAL RESEARCH LAB.",
         heroDesc: "DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.",
         portfolioBtn: "PORTFOLIO",
@@ -133,6 +157,30 @@ const translations = {
         navStory: "Nuestra Historia",
         navContact: "Contacto",
         navBook: "Iniciar un proyecto",
+        exploreWorkBtn: "Explorar el trabajo",
+        chatTitle: "ASISTENTE SKYRDY",
+        chatPlaceholder: "Pregunta sobre tu proyecto...",
+        chatGreeting: "¡Hola! 👋 ¿Listo para iniciar tu proyecto? Empecemos por conocer un poco más sobre él.",
+        chatError: "Algo salió mal de mi lado — intenta de nuevo en un momento, o contáctanos directamente a través del formulario.",
+        chatQService: "¿Qué servicio se ajusta mejor a tu proyecto?",
+        chatOptService1: "Droneworks",
+        chatOptService2: "Cine",
+        chatOptService3: "Motion Design",
+        chatOptService4: "Investigación Visual",
+        chatOptService5: "Aún no lo sé",
+        chatQLocation: "¿Dónde está ubicado el proyecto?",
+        chatQTimeline: "¿Cuándo te gustaría comenzar?",
+        chatOptTimeline1: "Lo antes posible",
+        chatOptTimeline2: "En el próximo mes",
+        chatOptTimeline3: "1\u20133 meses",
+        chatOptTimeline4: "Solo explorando",
+        chatQDetails: "Cuéntame un poco más sobre el proyecto.",
+        chatQName: "¿Cuál es tu nombre?",
+        chatQEmail: "¿Y tu correo, para poder contactarte?",
+        chatChooseOption: "Elige una opción arriba",
+        chatSubmitting: "Listo \u2014 enviando esto ahora...",
+        chatSuccess: "¡Enviado! Nos pondremos en contacto pronto. Gracias por escribirnos.",
+        chatSubmitError: "Eso no se pudo enviar \u2014 por favor usa el formulario de contacto de abajo.",
         heroSubtitle: "LABORATORIO DE INVESTIGACIÓN VISUAL.",
         heroDesc: "IMPULSADOS POR LA INVESTIGACIÓN VISUAL, CREAMOS IMÁGENES AÉREAS DE CALIDAD CINEMATOGRÁFICA, NARRATIVA VISUAL Y MOTION DESIGN PARA DAR FORMA A CÓMO SE VE TU PROYECTO.",
         portfolioBtn: "PORTAFOLIO",
@@ -231,6 +279,10 @@ function toggleLanguage() {
         }
     });
 
+    if (typeof resetChatForLanguage === 'function') {
+        resetChatForLanguage();
+    }
+
 }
 
 function toggleMobileMenu() {
@@ -277,7 +329,178 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         revealEls.forEach(el => el.classList.add('visible'));
     }
+
+    initChatWidget();
 });
+
+// ---- Chat Widget: Guided Project Quiz (no AI, no backend, free) ----
+const WEB3FORMS_KEY = '11120844-e150-41b2-ab28-27c5d7dc6595';
+
+function initChatWidget() {
+    const toggleBtn = document.getElementById('chatToggleBtn');
+    const closeBtn = document.getElementById('chatCloseBtn');
+    const chatWindow = document.getElementById('chatWindow');
+    const iconOpen = document.getElementById('chatIconOpen');
+    const iconClose = document.getElementById('chatIconClose');
+    const messagesEl = document.getElementById('chatMessages');
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('chatInput');
+
+    if (!toggleBtn || !form) return;
+
+    function t(key) {
+        return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+    }
+
+    const steps = [
+        { key: 'service', qKey: 'chatQService', type: 'buttons', optKey: 'chatOptService' },
+        { key: 'location', qKey: 'chatQLocation', type: 'text' },
+        { key: 'timeline', qKey: 'chatQTimeline', type: 'buttons', optKey: 'chatOptTimeline' },
+        { key: 'details', qKey: 'chatQDetails', type: 'text' },
+        { key: 'name', qKey: 'chatQName', type: 'text' },
+        { key: 'email', qKey: 'chatQEmail', type: 'text' },
+    ];
+
+    let stepIndex = 0;
+    let answers = {};
+    let hasStarted = false;
+    let awaitingText = false;
+
+    function startChat() {
+        messagesEl.innerHTML = '';
+        stepIndex = 0;
+        answers = {};
+        appendMessage('assistant', t('chatGreeting'));
+        setTimeout(() => askStep(), 400);
+        hasStarted = true;
+    }
+
+    window.resetChatForLanguage = function () {
+        if (!hasStarted) return;
+        startChat();
+    };
+
+    function openChat() {
+        chatWindow.classList.remove('hidden');
+        chatWindow.classList.add('flex');
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+        if (!hasStarted) {
+            startChat();
+        }
+        if (awaitingText) input.focus();
+    }
+
+    function closeChat() {
+        chatWindow.classList.add('hidden');
+        chatWindow.classList.remove('flex');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        chatWindow.classList.contains('hidden') ? openChat() : closeChat();
+    });
+    closeBtn.addEventListener('click', closeChat);
+
+    function appendMessage(role, text) {
+        const bubble = document.createElement('div');
+        bubble.className = role === 'user'
+            ? 'ml-auto max-w-[80%] rounded-2xl rounded-br-sm bg-accent px-3 py-2 text-background'
+            : 'mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-secondary/40 px-3 py-2 text-foreground';
+        bubble.textContent = text;
+        messagesEl.appendChild(bubble);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        return bubble;
+    }
+
+    function appendButtons(options) {
+        const wrap = document.createElement('div');
+        wrap.className = 'mr-auto flex flex-wrap gap-2';
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = opt;
+            btn.className = 'rounded-full border border-border px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-foreground transition-colors hover:border-accent hover:text-accent';
+            btn.addEventListener('click', () => {
+                wrap.remove();
+                handleAnswer(opt);
+            });
+            wrap.appendChild(btn);
+        });
+        messagesEl.appendChild(wrap);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function askStep() {
+        if (stepIndex >= steps.length) {
+            submitLead();
+            return;
+        }
+        const step = steps[stepIndex];
+        appendMessage('assistant', t(step.qKey));
+        if (step.type === 'buttons') {
+            awaitingText = false;
+            input.disabled = true;
+            input.placeholder = t('chatChooseOption');
+            const opts = [1, 2, 3, 4, 5].map(n => t(step.optKey + n)).filter(o => o && !o.startsWith('chatOpt'));
+            setTimeout(() => appendButtons(opts), 200);
+        } else {
+            awaitingText = true;
+            input.disabled = false;
+            input.placeholder = t('chatPlaceholder');
+            input.focus();
+        }
+    }
+
+    function handleAnswer(value) {
+        appendMessage('user', value);
+        answers[steps[stepIndex].key] = value;
+        stepIndex++;
+        setTimeout(() => askStep(), 350);
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!awaitingText) return;
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        handleAnswer(text);
+    });
+
+    async function submitLead() {
+        input.disabled = true;
+        input.placeholder = '';
+        appendMessage('assistant', t('chatSubmitting'));
+
+        try {
+            const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({
+                    access_key: WEB3FORMS_KEY,
+                    subject: 'New chat widget lead — SKYRDY',
+                    from_name: 'SKYRDY Chat Widget',
+                    Service: answers.service || '',
+                    Location: answers.location || '',
+                    Timeline: answers.timeline || '',
+                    'Project details': answers.details || '',
+                    Name: answers.name || '',
+                    Email: answers.email || '',
+                }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                appendMessage('assistant', t('chatSuccess'));
+            } else {
+                appendMessage('assistant', t('chatSubmitError'));
+            }
+        } catch (err) {
+            appendMessage('assistant', t('chatSubmitError'));
+        }
+    }
+}
 </script>
 <style>
 .reveal {
@@ -349,191 +572,378 @@ document.addEventListener('DOMContentLoaded', () => {
 @media (max-width: 640px) {
     .hud-tag { display: none; }
 }
-</style>
 
-<style>
-/* SKYRDY art-directed portfolio pass */
-.portfolio-mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:28px;align-items:start}
-.portfolio-card{position:relative;min-width:0}
-.portfolio-card--01{grid-column:span 8;grid-row:span 2}
-.portfolio-card--02,.portfolio-card--03{grid-column:span 4}
-.portfolio-card--04,.portfolio-card--05,.portfolio-card--06{grid-column:span 4}
-.portfolio-media{position:relative;width:100%;overflow:hidden;background:#050505;border:1px solid #262626}
-.portfolio-card--01 .portfolio-media{aspect-ratio:16/9}
-.portfolio-card:not(.portfolio-card--01) .portfolio-media{aspect-ratio:16/9}
-.portfolio-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s ease;filter:saturate(.9) contrast(1.04)}
-.portfolio-card:hover .portfolio-media img{transform:scale(1.045);filter:saturate(1) contrast(1.06)}
-.portfolio-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),transparent 25%,transparent 65%,rgba(0,0,0,.4));pointer-events:none}
-.portfolio-number{position:absolute;z-index:3;top:14px;left:16px;font:700 12px/1 Inter,sans-serif;letter-spacing:.16em;color:#ededed}
-.portfolio-launch{position:absolute;z-index:4;right:16px;bottom:16px;width:38px;height:38px;border:1px solid rgba(237,237,237,.7);border-radius:999px;display:grid;place-items:center;background:rgba(0,0,0,.22);backdrop-filter:blur(4px);transition:background .25s ease,transform .25s ease,border-color .25s ease}
-.portfolio-launch svg{width:16px;height:16px;stroke:#ededed;fill:none;stroke-width:1.5}
-.portfolio-card:hover .portfolio-launch{background:#54A5B1;border-color:#54A5B1;transform:translate(1px,-1px)}
-.portfolio-meta{display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-top:14px;padding-bottom:14px;border-bottom:1px solid #262626}
-.portfolio-category{font:700 10px/1 Inter,sans-serif;letter-spacing:.18em;color:#54A5B1;text-transform:uppercase}
-.portfolio-year{font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;color:#737373}
-.portfolio-title{margin-top:7px;font:400 clamp(20px,2vw,30px)/.98 'Bebas Neue',sans-serif;letter-spacing:.01em;color:#ededed;text-transform:uppercase}
-.portfolio-card--01 .portfolio-title{font-size:clamp(28px,3vw,42px)}
-.portfolio-embed{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;z-index:5}
-.portfolio-media.is-playing img,.portfolio-media.is-playing .portfolio-cover{display:none}
-.portfolio-media.is-playing .portfolio-embed{display:block}
-.portfolio-cover{position:absolute;inset:0;z-index:2;cursor:pointer}
-.portfolio-cover:focus-visible{outline:2px solid #54A5B1;outline-offset:-2px}
-@media (max-width:900px){.portfolio-mosaic{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.portfolio-card--01{grid-column:span 2;grid-row:auto}.portfolio-card--02,.portfolio-card--03,.portfolio-card--04,.portfolio-card--05,.portfolio-card--06{grid-column:span 1}}
-@media (max-width:600px){.portfolio-mosaic{grid-template-columns:1fr;gap:28px}.portfolio-card--01,.portfolio-card--02,.portfolio-card--03,.portfolio-card--04,.portfolio-card--05,.portfolio-card--06{grid-column:span 1}.portfolio-title,.portfolio-card--01 .portfolio-title{font-size:28px}}
+/* Hero showreel background */
+.showreel-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 177.78vh; /* 16:9 ratio, ensures full cover regardless of viewport */
+    height: 100vh;
+    min-width: 100%;
+    min-height: 56.25vw;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border: 0;
+    opacity: 0.55;
+    filter: saturate(0.85) brightness(0.75);
+}
+.showreel-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.75) 55%, rgba(10,10,10,.95) 100%),
+        radial-gradient(circle at center, transparent 30%, rgba(10,10,10,.5) 100%);
+}
+@media (max-width: 768px) {
+    .showreel-bg { opacity: 0.3; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .showreel-bg { display: none; }
+}
+
+/* Hero split video panel (right column) */
+.hero-video-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 177.78vh; /* 16:9 ratio sized off full height, fills the panel with no gaps */
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+    filter: saturate(0.9) brightness(0.85);
+}
+.hero-video-panel-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(10,10,10,.85) 0%, rgba(10,10,10,.15) 18%, transparent 40%);
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-video-panel { display: none; }
+}
+
+/* Chat widget */
+.chat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: rgba(84, 165, 177, 0.8);
+    animation: chat-dot-bounce 1.2s ease-in-out infinite;
+}
+.chat-dot:nth-child(2) { animation-delay: 0.15s; }
+.chat-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes chat-dot-bounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+    30% { transform: translateY(-4px); opacity: 1; }
+}
+#chatMessages::-webkit-scrollbar { width: 6px; }
+#chatMessages::-webkit-scrollbar-thumb { background: rgba(84,165,177,0.4); border-radius: 6px; }
 </style>
 </head>
 <body class="bg-background text-foreground antialiased selection:bg-foreground selection:text-background font-sans overflow-x-hidden">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 bg-background/85 backdrop-blur-md border-b border-border">
+<div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+<a class="flex items-center gap-3" href="/">
+<div class="h-10 w-auto shrink-0">
+<img src="hdtrhfg.png" alt="SKYRDY Logo" class="h-full w-auto object-contain invert" />
+</div>
+<span class="font-display text-sm sm:text-base tracking-widest text-foreground font-black uppercase">SKYRDY™ DRONE VIDEO + MOTION LAB.</span>
+</a>
+<nav class="hidden items-center gap-8 md:flex">
+<a href="#services" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navServices">Services</a>
+<a href="#about" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navAbout">About</a>
+<a href="#story" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navStory">Our Story</a>
+<a href="#contact" class="text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground" data-i18n="navContact">Contact</a>
+
+<button onclick="toggleLanguage()" class="flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-foreground hover:bg-secondary transition-colors">
+    🌐 <span class="langToggleText">ES</span>
+</button>
+<a href="#contact" class="rounded-full border border-foreground/30 px-4 py-2 text-sm font-medium uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background" data-i18n="navBook">Start a project</a>
+</nav>
+<button onclick="toggleMobileMenu()" class="flex items-center justify-center rounded-full border border-border p-2.5 text-foreground md:hidden" aria-label="Toggle menu">
+<svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+</svg>
+<svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+</svg>
+</button>
+</div>
+<div id="mobileMenu" class="hidden flex-col gap-1 border-t border-border bg-background px-6 py-4 md:hidden">
+<a href="#services" onclick="closeMobileMenu()" class="block rounded-xl px-3 py-3 text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground" data-i18n="navServices">Services</a>
+<a href="#about" onclick="closeMobileMenu()" class="block rounded-xl px-3 py-3 text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground" data-i18n="navAbout">About</a>
+<a href="#story" onclick="closeMobileMenu()" class="block rounded-xl px-3 py-3 text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground" data-i18n="navStory">Our Story</a>
+<a href="#contact" onclick="closeMobileMenu()" class="block rounded-xl px-3 py-3 text-sm font-medium uppercase tracking-widest text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground" data-i18n="navContact">Contact</a>
+<button onclick="toggleLanguage()" class="mt-2 flex items-center justify-center gap-1 rounded-full border border-border px-3 py-2.5 text-xs font-bold uppercase tracking-widest text-foreground hover:bg-secondary transition-colors">
+    🌐 <span class="langToggleText">ES</span>
+</button>
+<a href="#contact" onclick="closeMobileMenu()" class="mt-2 block rounded-full border border-foreground/30 px-4 py-3 text-center text-sm font-medium uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background" data-i18n="navBook">Start a project</a>
+</div>
+</header>
+
 <main>
-<!-- Art-directed Hero -->
-<section class="relative min-h-screen overflow-hidden bg-[#07090a] text-white">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_78%_42%,rgba(84,165,177,.12),transparent_34%),linear-gradient(90deg,#080a0b_0%,#0b0d0e_45%,#242729_100%)]"></div>
-  <div class="absolute right-0 top-0 h-full w-[57%] overflow-hidden">
-    <iframe class="absolute inset-0 h-full w-full scale-[1.18] border-0 opacity-70" src="https://www.youtube-nocookie.com/embed/hucVSn_azCg?autoplay=1&mute=1&loop=1&playlist=hucVSn_azCg&controls=0&modestbranding=1&rel=0" title="Balandra" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    <div class="absolute inset-0 bg-black/55"></div>
-    <div class="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#07090a] to-transparent"></div>
-  </div>
-  <div class="relative z-10 flex min-h-screen flex-col justify-between px-8 pb-8 pt-16 lg:px-14">
-    <div class="text-[11px] font-black uppercase tracking-[.34em] text-[#54cbd4]">SKYRDY™ / VISUAL RESEARCH LAB.</div>
-    <div class="flex flex-1 items-center">
-      <div class="max-w-[650px]">
-        <h1 class="font-hero uppercase leading-[.78] tracking-[-.045em] text-white" style="font-size:clamp(86px,12vw,184px)">
-          <span class="block">VISUAL</span>
-          <span class="block text-[#54cbd4]">RESEARCH</span>
-          <span class="block">LAB<span class="ml-2 inline-block align-[.04em] text-[#54cbd4]" style="font-size:.72em">●</span></span>
-        </h1>
-        <p class="mt-7 max-w-[590px] text-sm font-bold uppercase leading-[1.75] tracking-[.12em] text-white/75 sm:text-base">
-          DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a class="rounded-full bg-[#54cbd4] px-7 py-3 text-sm font-black uppercase tracking-[.14em] text-black" href="#contact">START A PROJECT ↗</a>
-          <a class="rounded-full border border-white/30 px-7 py-3 text-sm font-black uppercase tracking-[.14em] text-white" href="#droneworks">EXPLORE THE WORK ↓</a>
-        </div>
-      </div>
-    </div>
-    <div class="flex items-end justify-between gap-8 text-[10px] font-black uppercase tracking-[.28em] text-white/55">
-      <div>DRONEWORKS &nbsp; / &nbsp; FILM &nbsp; / &nbsp; MOTION DESIGN &nbsp; / &nbsp; VISUAL RESEARCH</div>
-    </div>
-  </div>
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-background pt-24 lg:pt-0">
+<div class="grid min-h-screen lg:grid-cols-[44%_56%]">
+
+<!-- LEFT: text content -->
+<div class="relative z-10 flex flex-col justify-center px-6 py-16 lg:px-16 lg:py-0">
+<span class="font-display text-xs font-black tracking-[0.28em] text-accent sm:text-sm">SKYRDY™ / VISUAL RESEARCH LAB.</span>
+<h1 class="mt-4 font-hero uppercase leading-[0.85] tracking-tight text-foreground text-[clamp(48px,9vw,108px)]">
+<span class="block">VISUAL</span>
+<span class="block text-accent">RESEARCH</span>
+<span class="block">LAB<span class="hero-dot ml-1 inline-block w-[0.5em] h-[0.5em] rounded-full bg-accent align-baseline"></span></span>
+</h1>
+<p class="mt-6 max-w-md text-sm sm:text-base uppercase tracking-[0.15em] text-muted-foreground font-bold" data-i18n="heroDesc">
+DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELLING AND MOTION DESIGN TO SHAPE HOW YOUR PROJECT IS SEEN.
+</p>
+<div class="mt-8 flex flex-wrap items-center gap-4">
+<a href="#contact" class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-all hover:bg-accent/90"><span data-i18n="navBook">Start a project</span> ↗</a>
+<a href="#services" class="inline-flex items-center gap-2 rounded-full border border-foreground/30 px-6 py-3 text-sm font-black uppercase tracking-widest text-foreground transition-all hover:bg-foreground/10"><span data-i18n="exploreWorkBtn">Explore the work</span> ↓</a>
+</div>
+</div>
+
+<!-- RIGHT: video panel -->
+<div class="relative hidden overflow-hidden lg:block">
+<iframe class="hero-video-panel" src="https://www.youtube-nocookie.com/embed/ZEZff4cU-58?autoplay=1&mute=1&controls=0&loop=1&playlist=ZEZff4cU-58&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1" title="" frameborder="0" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+<div class="hero-video-panel-overlay"></div>
+</div>
+
+</div>
+
+<!-- Services quick links -->
+<div class="relative z-10 -mt-12 flex flex-wrap items-center justify-center gap-3 px-6 pb-8 text-3xl font-black uppercase tracking-widest text-foreground sm:-mt-20 sm:gap-6 sm:text-5xl lg:px-16">
+<a href="#droneworks" class="hover:text-accent transition-colors">DRONEWORKS</a>
+<span>•</span>
+<a href="#film" class="hover:text-accent transition-colors">FILM</a>
+<span>•</span>
+<a href="#motion-design" class="hover:text-accent transition-colors">MOTION DESIGN</a>
+<span>•</span>
+<a href="#visual-research" class="hover:text-accent transition-colors">VISUAL RESEARCH</a>
+</div>
+
+<!-- Marquee Band -->
+<div class="relative w-full overflow-hidden border-t border-border py-4 bg-background">
+<div class="flex w-max animate-marquee whitespace-nowrap">
+<div class="flex items-center gap-8 px-4">
+<a href="#droneworks" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Droneworks</a>
+<a href="#film" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Film</a>
+<a href="#motion-design" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Motion Design</a>
+<a href="#visual-research" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Visual Research</a>
+</div>
+<div class="flex items-center gap-8 px-4" aria-hidden="true">
+<a href="#droneworks" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Droneworks</a>
+<a href="#film" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Film</a>
+<a href="#motion-design" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Motion Design</a>
+<a href="#visual-research" class="font-display text-lg tracking-widest text-muted-foreground transition-colors hover:text-foreground uppercase px-3 py-1 border border-border rounded-full bg-secondary/30">Visual Research</a>
+</div>
+</div>
+</div>
 </section>
+
 <!-- Services Overview Section -->
-<section class="relative overflow-hidden bg-background px-6 py-24 lg:px-8 border-t border-border" id="services">
+<section id="services" class="relative overflow-hidden bg-background px-6 py-24 lg:px-8 border-t border-border">
 <div class="relative mx-auto max-w-7xl">
 <div class="mb-12 border-b border-border pb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between">
 <div>
 <span class="font-display text-sm tracking-[0.28em] text-accent" data-i18n="whatWeDo">WHAT WE DO</span>
 <h2 class="mt-3 font-hero uppercase text-foreground text-[clamp(58px,9vw,140px)] leading-[0.82] tracking-[-0.02em]">
-<span data-i18n="servicesTitleLine1">SERVICES</span><br/><span data-i18n="servicesTitleLine2">&amp; DISCIPLINES</span>
+<span data-i18n="servicesTitleLine1">SERVICES</span><br><span data-i18n="servicesTitleLine2">&amp; DISCIPLINES</span>
 </h2>
 </div>
 <p class="max-w-md text-sm uppercase text-muted-foreground" data-i18n="servicesDesc">Curious about our work and what we do? Explore our services below and discover the work behind each discipline.</p>
 </div>
+
 <div class="divide-y divide-border border-t border-border">
-<a class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6" href="#droneworks">
-<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">01</span>
-<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Droneworks</h3>
-<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="droneworksDesc">Licensed drone operations for cinematic aerials and location-driven work across hospitality, architecture, real estate, destinations, and more. We take projects beyond the ground.</p>
-<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+<a href="#droneworks" class="group grid grid-cols-[40px_1fr_24px] gap-x-4 gap-y-3 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6 sm:gap-y-0">
+<span class="col-start-1 row-start-1 font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">01</span>
+<h3 class="col-start-2 row-start-1 font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Droneworks</h3>
+<p class="col-start-1 col-span-3 row-start-2 text-xs leading-relaxed text-muted-foreground sm:col-start-3 sm:col-span-1 sm:row-start-1 sm:text-sm" data-i18n="droneworksDesc">Licensed drone operations for cinematic aerials and location-driven work across hospitality, architecture, real estate, destinations, and more. We take projects beyond the ground.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4">→</span>
 </a>
-<a class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6" href="#film">
-<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">02</span>
-<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Film</h3>
-<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="filmDesc">Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.</p>
-<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+<a href="#film" class="group grid grid-cols-[40px_1fr_24px] gap-x-4 gap-y-3 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6 sm:gap-y-0">
+<span class="col-start-1 row-start-1 font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">02</span>
+<h3 class="col-start-2 row-start-1 font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Film</h3>
+<p class="col-start-1 col-span-3 row-start-2 text-xs leading-relaxed text-muted-foreground sm:col-start-3 sm:col-span-1 sm:row-start-1 sm:text-sm" data-i18n="filmDesc">Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4">→</span>
 </a>
-<a class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6" href="#motion-design">
-<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">03</span>
-<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Motion Design</h3>
-<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="motionDesc">Motion graphics, titles, animations, and visual systems designed to give your ideas dynamic movement and presence.</p>
-<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+<a href="#motion-design" class="group grid grid-cols-[40px_1fr_24px] gap-x-4 gap-y-3 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6 sm:gap-y-0">
+<span class="col-start-1 row-start-1 font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">03</span>
+<h3 class="col-start-2 row-start-1 font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Motion Design</h3>
+<p class="col-start-1 col-span-3 row-start-2 text-xs leading-relaxed text-muted-foreground sm:col-start-3 sm:col-span-1 sm:row-start-1 sm:text-sm" data-i18n="motionDesc">Motion graphics, titles, animations, and visual systems designed to give your ideas dynamic movement and presence.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4">→</span>
 </a>
-<a class="group grid grid-cols-[40px_1fr_24px] gap-4 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6" href="#visual-research">
-<span class="font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">04</span>
-<h3 class="font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Visual Research</h3>
-<p class="text-xs leading-relaxed text-muted-foreground sm:text-sm" data-i18n="researchDesc">Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.</p>
-<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4 sm:row-start-auto">→</span>
+<a href="#visual-research" class="group grid grid-cols-[40px_1fr_24px] gap-x-4 gap-y-3 py-8 transition-all duration-300 hover:bg-secondary/25 px-4 hover:px-6 rounded-2xl sm:grid-cols-[80px_1fr_1.1fr_40px] sm:items-center sm:gap-6 sm:gap-y-0">
+<span class="col-start-1 row-start-1 font-display text-3xl text-muted-foreground transition-colors group-hover:text-accent">04</span>
+<h3 class="col-start-2 row-start-1 font-display text-2xl text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">Visual Research</h3>
+<p class="col-start-1 col-span-3 row-start-2 text-xs leading-relaxed text-muted-foreground sm:col-start-3 sm:col-span-1 sm:row-start-1 sm:text-sm" data-i18n="researchDesc">Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.</p>
+<span class="col-start-3 row-start-1 justify-self-end text-2xl text-accent transition-transform duration-300 group-hover:translate-x-2 sm:col-start-4">→</span>
 </a>
 </div>
 </div>
 </section>
+
 <!-- Droneworks -->
-<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="droneworks">
+<section id="droneworks" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
 <div class="mx-auto max-w-7xl">
 <div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
-<div><span class="font-display text-sm tracking-[0.2em] text-accent">EXPLORE SOME OF OUR WORK</span><h2 class="mt-2 font-display text-2xl text-foreground sm:text-3xl md:text-4xl">FILM &amp; CINEMATOGRAPHY</h2></div>
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">EXPLORE SOME OF OUR WORK</span>
+<h2 class="mt-2 font-display text-2xl text-foreground sm:text-3xl md:text-4xl">DRONEWORKS</h2>
 </div>
-<div class="portfolio-mosaic"><article class="portfolio-card portfolio-card--01 reveal group">
-<div class="portfolio-media">
-<div aria-label="Open video: WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤" class="portfolio-cover" data-video="ZEZff4cU-58" role="button" tabindex="0">
-<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/ZEZff4cU-58/hqdefault.jpg'" src="https://i.ytimg.com/vi/ZEZff4cU-58/maxresdefault.jpg"/>
-<span class="portfolio-number">01</span>
-<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+<p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="droneworksDescShort">Aerial cinematography, aerial photography, FPV, exploration & more services.</p>
 </div>
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤"></iframe>
+<div class="grid gap-6 sm:grid-cols-12">
+<div class="reveal group sm:col-span-7 transition-all">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/hQiWnZQHtc4" 
+    title="Droning Cabos CoastLine Reef" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
 </div>
-<div class="portfolio-meta"><span class="portfolio-category">FILM / CINEMATOGRAPHY</span><span class="portfolio-year">2025</span></div>
-<h3 class="portfolio-title">WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤</h3>
-</article><article class="portfolio-card portfolio-card--02 reveal group">
-<div class="portfolio-media">
-<div aria-label="Open video: Droning Cabos CoastLine Reef" class="portfolio-cover" data-video="hQiWnZQHtc4" role="button" tabindex="0">
-<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/hQiWnZQHtc4/hqdefault.jpg'" src="https://i.ytimg.com/vi/hQiWnZQHtc4/maxresdefault.jpg"/>
-<span class="portfolio-number">02</span>
-<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
 </div>
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="Droning Cabos CoastLine Reef"></iframe>
 </div>
-<div class="portfolio-meta"><span class="portfolio-category">DRONEWORKS</span><span class="portfolio-year">2024</span></div>
-<h3 class="portfolio-title">Droning Cabos CoastLine Reef</h3>
-</article><article class="portfolio-card portfolio-card--03 reveal group">
-<div class="portfolio-media">
-<div aria-label="Open video: El Arco de Cabos San Lucas, BCS but vintage!" class="portfolio-cover" data-video="M-xMs__8t90" role="button" tabindex="0">
-<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/M-xMs__8t90/hqdefault.jpg'" src="https://i.ytimg.com/vi/M-xMs__8t90/maxresdefault.jpg"/>
-<span class="portfolio-number">03</span>
-<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Droning Cabos CoastLine Reef</h3>
+<p class="text-sm text-muted-foreground mt-1">2024</p>
 </div>
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="El Arco de Cabos San Lucas, BCS but vintage!"></iframe>
 </div>
-<div class="portfolio-meta"><span class="portfolio-category">FILM / CINEMATOGRAPHY</span><span class="portfolio-year">2023</span></div>
-<h3 class="portfolio-title">El Arco de Cabos San Lucas, BCS but vintage!</h3>
-</article><article class="portfolio-card portfolio-card--04 reveal group">
-<div class="portfolio-media">
-<div aria-label="Open video: Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX" class="portfolio-cover" data-video="YmeDebNWPxk" role="button" tabindex="0">
-<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/YmeDebNWPxk/hqdefault.jpg'" src="https://i.ytimg.com/vi/YmeDebNWPxk/maxresdefault.jpg"/>
-<span class="portfolio-number">04</span>
-<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
+<div class="reveal group sm:col-span-5 transition-all">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/YmeDebNWPxk" 
+    title="Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
 </div>
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX"></iframe>
 </div>
-<div class="portfolio-meta"><span class="portfolio-category">DRONEWORKS</span><span class="portfolio-year">2020</span></div>
-<h3 class="portfolio-title">Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX</h3>
-</article><article class="portfolio-card portfolio-card--05 reveal group">
-<div class="portfolio-media">
-<div aria-label="Open video: Cinematic Drone Top Down / CruiseShip Chase" class="portfolio-cover" data-video="EGUC1EOu0lU" role="button" tabindex="0">
-<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/EGUC1EOu0lU/hqdefault.jpg'" src="https://i.ytimg.com/vi/EGUC1EOu0lU/maxresdefault.jpg"/>
-<span class="portfolio-number">05</span>
-<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
 </div>
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="Cinematic Drone Top Down / CruiseShip Chase"></iframe>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Drone Shot Over Torre Latino, COVID-19 Pandemic in CDMX</h3>
+<p class="text-sm text-muted-foreground mt-1">2020</p>
 </div>
-<div class="portfolio-meta"><span class="portfolio-category">FILM / CINEMATOGRAPHY</span><span class="portfolio-year">2025</span></div>
-<h3 class="portfolio-title">Cinematic Drone Top Down / CruiseShip Chase</h3>
-</article><article class="portfolio-card portfolio-card--06 reveal group">
-<div class="portfolio-media">
-<div aria-label="Open video: Dronework For A Local Company In Tijuana" class="portfolio-cover" data-video="HlD-ugXKieo" role="button" tabindex="0">
-<img alt="" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/HlD-ugXKieo/hqdefault.jpg'" src="https://i.ytimg.com/vi/HlD-ugXKieo/maxresdefault.jpg"/>
-<span class="portfolio-number">06</span>
-<span aria-hidden="true" class="portfolio-launch"><svg viewbox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></span>
 </div>
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="portfolio-embed" referrerpolicy="strict-origin-when-cross-origin" title="Dronework For A Local Company In Tijuana"></iframe>
 </div>
-<div class="portfolio-meta"><span class="portfolio-category">FILM / CINEMATOGRAPHY</span><span class="portfolio-year">2025</span></div>
-<h3 class="portfolio-title">Dronework For A Local Company In Tijuana</h3>
-</article></div>
 </div>
-</section><span aria-hidden="true" id="film"></span>
+</section>
+
 <!-- Film -->
+<section id="film" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<span class="font-display text-sm tracking-[0.2em] text-accent" data-i18n="servicePortfolio">EXPLORE SOME OF OUR WORK</span>
+<h2 class="mt-2 font-display text-2xl text-foreground sm:text-3xl md:text-4xl" data-i18n="filmTitle">FILM &amp; CINEMATOGRAPHY</h2>
+</div>
+<p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="filmDescShort">Cinematic storytelling for business, places, brands, and experiences. Spanning hospitality, real estate, campaigns, productions, and events. We shape the final image with our clients — editing, color correction, motion graphics, and finishing details that bring the story together exactly as it needs to be seen.</p>
+</div>
+<div class="grid gap-6 sm:grid-cols-12">
+<div class="reveal group sm:col-span-7 transition-all">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/M-xMs__8t90" 
+    title="El Arco de Cabos San Lucas, BCS but vintage!" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">El Arco de Cabos San Lucas, BCS but vintage!</h3>
+<p class="text-sm text-muted-foreground mt-1">2023</p>
+</div>
+</div>
+<div class="reveal group sm:col-span-5 transition-all">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/ZEZff4cU-58" 
+    title="WE LOVE LA PAZ SUNSETS AND LANDSCAPES" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">WE LOVE LA PAZ SUNSETS AND LANDSCAPES🖤</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+<div class="reveal group sm:col-span-6 transition-all">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/EGUC1EOu0lU" 
+    title="Cinematic Drone Top Down / CruiseShip Chase" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Cinematic Drone Top Down / CruiseShip Chase</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+<div class="reveal group sm:col-span-6 transition-all">
+<div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/HlD-ugXKieo" 
+    title="Dronework For A Local Company In Tijuana" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
+<div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-display text-2xl text-foreground">Dronework For A Local Company In Tijuana</h3>
+<p class="text-sm text-muted-foreground mt-1">2025</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 <!-- Motion Design -->
-<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="motion-design">
+<section id="motion-design" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
 <div class="mx-auto max-w-7xl">
 <div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
 <div>
@@ -542,14 +952,20 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="motionDescShort">2D/3D, animation, titles, VFX, graphics.</p>
 </div>
-<div class="grid gap-8 md:grid-cols-2">
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="grid gap-6 sm:grid-cols-12">
+<div class="reveal group sm:col-span-7 transition-all">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/NAV2HUMH25k" title="skyrdy™ Visual Research Labs.">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/NAV2HUMH25k" 
+    title="skyrdy™ Visual Research Labs." 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
 <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
 <div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
 </div>
 </div>
 </div>
@@ -558,13 +974,19 @@ document.addEventListener('DOMContentLoaded', () => {
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-5 transition-all">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/bCvhn3rff1I" title="Silvered Logo Intro For Lattice® Beauty Brands">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/bCvhn3rff1I" 
+    title="Silvered Logo Intro For Lattice® Beauty Brands" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
 <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
 <div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
 </div>
 </div>
 </div>
@@ -573,13 +995,19 @@ document.addEventListener('DOMContentLoaded', () => {
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-6 transition-all">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/3GU2Fa0nf6Q" title="Logo intro for a brand Tentant®">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/3GU2Fa0nf6Q" 
+    title="Logo intro for a brand Tentant®" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
 <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
 <div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
 </div>
 </div>
 </div>
@@ -588,13 +1016,19 @@ document.addEventListener('DOMContentLoaded', () => {
 <p class="text-sm text-muted-foreground mt-1">2023</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-6 transition-all">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/qJFCCenK7xg" title="Branding Tentant®">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/qJFCCenK7xg" 
+    title="Branding Tentant®" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
 <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
 <div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
 </div>
 </div>
 </div>
@@ -606,8 +1040,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 </section>
+
 <!-- Visual Research -->
-<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="visual-research">
+<section id="visual-research" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
 <div class="mx-auto max-w-7xl">
 <div class="mb-12 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
 <div>
@@ -616,14 +1051,20 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="researchDescShort">Visual identities, social campaigns, and short-form content built for modern brands and digital audiences. Ideas before execution. References, moodboards, experiments, and visual studies that help discover what a project could become.</p>
 </div>
-<div class="grid gap-8 md:grid-cols-2">
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="grid gap-6 sm:grid-cols-12">
+<div class="reveal group sm:col-span-7 transition-all">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/kzH9lbCw2y8" title="Trending">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/kzH9lbCw2y8" 
+    title="Trending" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
 <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
 <div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
 </div>
 </div>
 </div>
@@ -632,13 +1073,19 @@ document.addEventListener('DOMContentLoaded', () => {
 <p class="text-sm text-muted-foreground mt-1">2025</p>
 </div>
 </div>
-<div class="reveal group rounded-2xl border border-border bg-card p-4 transition-all hover:border-accent">
+<div class="reveal group sm:col-span-5 transition-all">
 <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/tKMjmkNGB3Q" title="Concept Burger Ad For Social Media Made With AE">
+<iframe 
+    class="h-full w-full border-0 transition-transform duration-500 group-hover:scale-110"
+    src="https://www.youtube-nocookie.com/embed/tKMjmkNGB3Q" 
+    title="Concept Burger Ad For Social Media Made With AE" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
 <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/0 transition-all duration-300 group-hover:bg-background/40">
 <div class="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-accent/95 opacity-0 shadow-[0_0_24px_rgba(84,165,177,0.5)] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-<svg class="ml-1 h-5 w-5 fill-background" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+<svg class="ml-1 h-5 w-5 fill-background" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
 </div>
 </div>
 </div>
@@ -650,13 +1097,16 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 </section>
-<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="about">
+
+
+<section id="about" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
 <div class="mx-auto max-w-7xl">
 <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
 <div>
 <span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="aboutStudio">ABOUT THE STUDIO</span>
 <h2 class="mt-2 font-display text-4xl text-foreground sm:text-5xl md:text-6xl" data-i18n="aboutTitle">SKY READY™ FOR YOUR NEXT AERIAL PROJECT</h2>
 <p class="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg" data-i18n="aboutDesc">At skyrdy™ (sky ready®), we combine aerial drone videography, motion graphics, and post-production to create projects tailored to our client needs. We offer a range of drone services—ask about the right one for you!</p>
+
 <ul class="mt-8 space-y-3">
 <li class="flex items-center gap-3 text-sm sm:text-base text-foreground font-medium">
 <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xs">✓</span>
@@ -682,25 +1132,28 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <div class="relative flex aspect-square items-center justify-center rounded-3xl border border-border bg-secondary/20 p-8">
 <div class="w-full h-full max-w-sm flex items-center justify-center">
-<img alt="SKYRDY Logo" class="w-full h-full object-contain" src="Colored%20Logo.png"/>
+<img src="Colored%20Logo.png" alt="SKYRDY Logo" class="w-full h-full object-contain" />
 </div>
 </div>
 </div>
 </div>
 </section>
+
 <!-- Our Story Section -->
-<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="story">
+<section id="story" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
 <div class="mx-auto max-w-6xl">
 <div class="mb-12 border-b border-border pb-6 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
 <div>
 <span class="font-display text-sm tracking-[0.28em] text-accent" data-i18n="storyLabel">THE STORY BEHIND SKY READY™</span>
 <h2 class="mt-3 font-hero uppercase text-foreground text-[clamp(58px,9vw,140px)] leading-[0.82] tracking-[-0.02em]">
-<span data-i18n="storyTitleLine1">FROM</span><br/><span data-i18n="storyTitleLine2">HIKE TO LAB</span>
+<span data-i18n="storyTitleLine1">FROM</span><br><span data-i18n="storyTitleLine2">HIKE TO LAB</span>
 </h2>
 </div>
 <p class="max-w-md text-sm uppercase font-semibold text-muted-foreground" data-i18n="storySubtitle">What started with a hike and a little Parrot drone slowly evolved into something much bigger.</p>
 </div>
+
 <div class="relative mt-16 ml-3 space-y-16 border-l border-border pl-8 sm:ml-4 sm:pl-10">
+
 <div class="reveal relative">
 <span class="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_16px_rgba(84,165,177,0.6)] sm:-left-[49px]"></span>
 <span class="font-display text-2xl text-accent sm:text-3xl">2014</span>
@@ -712,6 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <p data-i18n="story2014P4">We wanted to learn. An opportunity came up for me to study cinematography in Mexico City, so we moved to CDMX and enrolled at Facultad de Cine, in La Roma, to study film. We wanted to understand more than just how to fly. We wanted to learn how to create images, tell stories, work with light, movement, and composition, and ultimately understand how to use a camera as a storytelling tool.</p>
 </div>
 </div>
+
 <div class="reveal relative">
 <span class="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_16px_rgba(84,165,177,0.6)] sm:-left-[49px]"></span>
 <span class="font-display text-2xl text-accent sm:text-3xl">2017</span>
@@ -721,6 +1175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <p data-i18n="story2017P2">For a few months, things started moving in the direction we had dreamed about. Then the earthquake hit. Film and television production came to a halt, and once again, life forced us to change course. I relocated to Baja, where I continued working with local talent, taking on smaller gigs, and finding ways to keep creating.</p>
 </div>
 </div>
+
 <div class="reveal relative">
 <span class="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_16px_rgba(84,165,177,0.6)] sm:-left-[49px]"></span>
 <span class="font-display text-2xl text-accent sm:text-3xl">2020</span>
@@ -730,6 +1185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <p data-i18n="story2020P2">Along the way, we grew the team, expanded our services, improved our equipment, refined our skills, and, most importantly, developed a much clearer vision of what SKYRDY™ could become.</p>
 </div>
 </div>
+
 <div class="reveal relative">
 <span class="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_16px_rgba(84,165,177,0.6)] sm:-left-[49px]"></span>
 <span class="font-display text-2xl text-accent sm:text-3xl" data-i18n="storyTodayLabel">TODAY</span>
@@ -740,11 +1196,13 @@ document.addEventListener('DOMContentLoaded', () => {
 <p class="font-semibold text-foreground" data-i18n="storyTagline">SKYRDY™ — Drone Video + Motion Lab.</p>
 </div>
 </div>
+
 </div>
 </div>
 </section>
+
 <!-- Contact Section -->
-<section class="bg-background px-6 py-24 lg:px-8 border-t border-border" id="contact">
+<section id="contact" class="bg-background px-6 py-24 lg:px-8 border-t border-border">
 <div class="mx-auto max-w-7xl">
 <div class="mb-12 border-b border-border pb-6">
 <span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="readyStart">READY TO START A PROJECT?</span>
@@ -755,32 +1213,34 @@ document.addEventListener('DOMContentLoaded', () => {
 <p class="text-lg leading-relaxed text-muted-foreground" data-i18n="contactDesc">Tell us about your project or brand...</p>
 <div class="mt-8">
 <span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="emailLabel">EMAIL</span>
-<a class="mt-2 block text-xl text-foreground transition-colors hover:text-accent" href="mailto:skyrdymx@gmail.com">skyrdymx@gmail.com</a>
+<a href="mailto:skyrdymx@gmail.com" class="mt-2 block text-xl text-foreground transition-colors hover:text-accent">skyrdymx@gmail.com</a>
 </div>
 </div>
 <div class="rounded-3xl border border-border bg-card p-6 sm:p-8">
-<form action="https://api.web3forms.com/submit" class="space-y-6" method="POST">
-<input name="access_key" type="hidden" value="11120844-e150-41b2-ab28-27c5d7dc6595"/>
-<input name="subject" type="hidden" value="New Inquiry from skyrdy.com"/>
+<form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+<input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
+<input type="hidden" name="subject" value="New Inquiry from skyrdy.com">
+
 <div class="grid gap-6 sm:grid-cols-3">
 <div>
-<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formName" for="name">Name</label>
-<input class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="formNamePh" id="name" name="name" placeholder="Your name" required="">
-</input></div>
+<label for="name" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formName">Name</label>
+<input id="name" name="name" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Your name" data-i18n-placeholder="formNamePh" required />
+</div>
 <div>
-<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formEmail" for="email">Email</label>
-<input class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" id="email" name="email" placeholder="you@company.com" required="" type="email">
-</input></div>
+<label for="email" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formEmail">Email</label>
+<input id="email" type="email" name="email" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@company.com" required />
+</div>
 <div>
-<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formPhone" for="phone">Phone</label>
-<input class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="formPhonePh" id="phone" inputmode="tel" name="phone" pattern="[0-9+\-\s()]{7,20}" placeholder="+1 (555) 123-4567" required="" title="Enter a valid phone number (digits only, 7-20 characters)" type="tel"/>
+<label for="phone" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formPhone">Phone</label>
+<input id="phone" type="tel" name="phone" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="+1 (555) 123-4567" data-i18n-placeholder="formPhonePh" pattern="[0-9+\-\s()]{7,20}" title="Enter a valid phone number (digits only, 7-20 characters)" inputmode="tel" required />
 </div>
 </div>
+
 <div class="grid gap-6 sm:grid-cols-2">
 <div>
-<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formService" for="projectType">Service</label>
-<select class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" id="projectType" name="projectType">
-<option data-i18n="formSelectService" value="">Select a service</option>
+<label for="projectType" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formService">Service</label>
+<select id="projectType" name="projectType" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground">
+<option value="" data-i18n="formSelectService">Select a service</option>
 <option value="Droneworks">Droneworks</option>
 <option value="Film">Film</option>
 <option value="Motion Design">Motion Design</option>
@@ -789,15 +1249,17 @@ document.addEventListener('DOMContentLoaded', () => {
 </select>
 </div>
 <div>
-<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formLocation" for="location">Location</label>
-<input class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="formLocationPh" id="location" name="location" placeholder="City, State" required=""/>
+<label for="location" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formLocation">Location</label>
+<input id="location" name="location" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="City, State" data-i18n-placeholder="formLocationPh" required />
 </div>
 </div>
+
 <div>
-<label class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formMessage" for="message">Message</label>
-<textarea class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="formMessagePh" id="message" name="message" placeholder="Tell us more about your project or brand..." required="" rows="5"></textarea>
+<label for="message" class="mb-2 block text-xs font-medium uppercase tracking-widest text-muted-foreground" data-i18n="formMessage">Message</label>
+<textarea id="message" name="message" rows="5" class="w-full rounded-xl border border-input bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="Tell us more about your project or brand..." data-i18n-placeholder="formMessagePh" required></textarea>
 </div>
-<button class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 py-4 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90" data-i18n="sendMsg" type="submit">
+
+<button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 py-4 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90" data-i18n="sendMsg">
 REACH OUT TO US
 </button>
 </form>
@@ -805,62 +1267,76 @@ REACH OUT TO US
 </div>
 </div>
 </section>
+
 <!-- Newsletter Section -->
-<section class="bg-background px-6 pb-24 lg:px-8" id="newsletter">
+<section id="newsletter" class="bg-background px-6 pb-24 lg:px-8">
 <div class="mx-auto max-w-7xl">
 <div class="rounded-3xl border border-border bg-card px-6 py-14 text-center sm:px-12 sm:py-16">
 <span class="font-display text-sm tracking-[0.2em] text-muted-foreground" data-i18n="newsletterEyebrow">WANNA STAY IN THE LOOP ?</span>
 <h2 class="mt-3 font-display text-3xl text-foreground sm:text-4xl md:text-5xl" data-i18n="newsletterTitle">GET NEW WORK IN YOUR INBOX</h2>
 <p class="mt-4 text-sm text-muted-foreground sm:text-base" data-i18n="newsletterDesc">LETS KEEP YOU UPDATED, REELS, BTS AND NEWS!.</p>
-<form action="https://api.web3forms.com/submit" class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row" method="POST">
-<input name="access_key" type="hidden" value="11120844-e150-41b2-ab28-27c5d7dc6595"/>
-<input name="subject" type="hidden" value="Newsletter signup from skyrdy.com"/>
-<label class="sr-only" for="newsletterEmail">Email</label>
-<input class="w-full flex-1 rounded-xl border border-input bg-background px-5 py-3 text-foreground outline-none transition-colors focus:border-foreground" data-i18n-placeholder="newsletterPh" id="newsletterEmail" name="email" placeholder="you@email.com" required="" type="email">
-<button class="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90 whitespace-nowrap" data-i18n="newsletterBtn" type="submit">
+<form action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+<input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
+<input type="hidden" name="subject" value="Newsletter signup from skyrdy.com">
+<label for="newsletterEmail" class="sr-only">Email</label>
+<input id="newsletterEmail" type="email" name="email" class="w-full flex-1 rounded-xl border border-input bg-background px-5 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@email.com" data-i18n-placeholder="newsletterPh" required />
+<button type="submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black uppercase tracking-widest text-background transition-colors hover:bg-foreground/90 whitespace-nowrap" data-i18n="newsletterBtn">
 SUBSCRIBE
 </button>
-</input></form>
+</form>
 </div>
 </div>
 </section>
 </main>
+
 <!-- Footer -->
 <footer class="border-t border-border bg-background px-6 py-12 lg:px-8">
 <div class="mx-auto max-w-7xl flex flex-col items-center gap-4 border-b border-border pb-10 text-center">
 <p class="font-semibold uppercase tracking-widest text-foreground" data-i18n="followUs">Let's get social, connect with us.</p>
 <div class="flex items-center justify-center gap-4">
-<a aria-label="Instagram" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent" href="https://www.instagram.com/skyrdy" rel="noopener noreferrer" target="_blank">
-<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" width="20" x="2" y="2"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" fill="currentColor" r="1" stroke="none"></circle></svg>
+<a href="https://www.instagram.com/skyrdy" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>
 </a>
-<a aria-label="Facebook" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent" href="https://www.facebook.com/skyrdy" rel="noopener noreferrer" target="_blank">
-<svg fill="currentColor" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.28-.04-1.25-.12-2.37-.12-2.35 0-3.95 1.43-3.95 4.06v2.35H7.6V13h2.78v8h3.12z"></path></svg>
+<a href="https://www.facebook.com/skyrdy" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.28-.04-1.25-.12-2.37-.12-2.35 0-3.95 1.43-3.95 4.06v2.35H7.6V13h2.78v8h3.12z"/></svg>
 </a>
-<a aria-label="YouTube" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent" href="https://www.youtube.com/@skyrdy" rel="noopener noreferrer" target="_blank">
-<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="14" rx="4" width="20" x="2" y="5"></rect><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"></path></svg>
+<a href="https://www.youtube.com/@skyrdy" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"/></svg>
 </a>
 </div>
 </div>
 <div class="mx-auto mt-8 flex max-w-7xl flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
-<p>© 2026 SKYRDY™ - sky ready®. <span data-i18n="footerRights">All rights reserved.</span></p>
+<p>&copy; 2026 SKYRDY™ - sky ready®. <span data-i18n="footerRights">All rights reserved.</span></p>
 <p class="uppercase tracking-widest" data-i18n="footerSub">Drone Video + Motion Lab</p>
 </div>
 </footer>
 
-<script>
-// Load each YouTube player only when intentionally opened.
-document.querySelectorAll('.portfolio-cover').forEach(function(cover){
-  function openVideo(){
-    const media=cover.closest('.portfolio-media');
-    if(media.classList.contains('is-playing')) return;
-    const iframe=media.querySelector('.portfolio-embed');
-    const id=cover.dataset.video;
-    iframe.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1';
-    media.classList.add('is-playing');
-  }
-  cover.addEventListener('click',openVideo);
-  cover.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openVideo();}});
-});
-</script>
+<!-- Chat Agent Widget -->
+<div id="chatWidget" class="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+
+<!-- Chat window -->
+<div id="chatWindow" class="hidden w-[90vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl" style="height: min(70vh, 560px);">
+<div class="flex items-center justify-between border-b border-border bg-secondary/30 px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-accent"></span>
+<span class="font-display text-sm tracking-widest text-foreground" data-i18n="chatTitle">SKYRDY ASSISTANT</span>
+</div>
+<button id="chatCloseBtn" type="button" aria-label="Close chat" class="text-muted-foreground transition-colors hover:text-foreground">✕</button>
+</div>
+<div id="chatMessages" class="flex-1 space-y-3 overflow-y-auto px-4 py-4 text-sm"></div>
+<form id="chatForm" class="flex items-center gap-2 border-t border-border p-3">
+<input id="chatInput" type="text" autocomplete="off" data-i18n-placeholder="chatPlaceholder" placeholder="Ask about a project..." class="flex-1 rounded-full border border-border bg-secondary/20 px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none" />
+<button type="submit" aria-label="Send" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-background transition-colors hover:bg-accent/90">↑</button>
+</form>
+</div>
+
+<!-- Toggle button -->
+<button id="chatToggleBtn" type="button" aria-label="Open chat" class="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-background shadow-2xl transition-transform hover:scale-105">
+<svg id="chatIconOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+<svg id="chatIconClose" class="hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+</button>
+
+</div>
+
 </body>
 </html>
