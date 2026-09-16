@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ---- Chat Widget: Guided Project Quiz (no AI, no backend, free) ----
-const WEB3FORMS_KEY = 'YOUR_NEW_WEB3FORMS_KEY_HERE';
+const WEB3FORMS_KEY = '11120844-e150-41b2-ab28-27c5d7dc6595';
 
 function initChatWidget() {
     const toggleBtn = document.getElementById('chatToggleBtn');
@@ -1231,7 +1231,7 @@ DRIVEN BY VISUAL RESEARCH, WE CREATE FILM-GRADE AERIAL IMAGERY, VISUAL STORYTELL
 </div>
 <div class="rounded-3xl border border-border bg-card p-6 sm:p-8">
 <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
-<input type="hidden" name="access_key" value="YOUR_NEW_WEB3FORMS_KEY_HERE">
+<input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
 <input type="hidden" name="subject" value="New Inquiry from skyrdy.com">
 
 <div class="grid gap-6 sm:grid-cols-3">
@@ -1289,7 +1289,7 @@ REACH OUT TO US
 <h2 class="mt-3 font-display text-3xl text-foreground sm:text-4xl md:text-5xl" data-i18n="newsletterTitle">GET NEW WORK IN YOUR INBOX</h2>
 <p class="mt-4 text-sm text-muted-foreground sm:text-base" data-i18n="newsletterDesc">LETS KEEP YOU UPDATED, REELS, BTS AND NEWS!.</p>
 <form action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
-<input type="hidden" name="access_key" value="YOUR_NEW_WEB3FORMS_KEY_HERE">
+<input type="hidden" name="access_key" value="11120844-e150-41b2-ab28-27c5d7dc6595">
 <input type="hidden" name="subject" value="Newsletter signup from skyrdy.com">
 <label for="newsletterEmail" class="sr-only">Email</label>
 <input id="newsletterEmail" type="email" name="email" class="w-full flex-1 rounded-xl border border-input bg-background px-5 py-3 text-foreground outline-none transition-colors focus:border-foreground" placeholder="you@email.com" data-i18n-placeholder="newsletterPh" required />
@@ -1304,4 +1304,52 @@ SUBSCRIBE
 
 <!-- Footer -->
 <footer class="border-t border-border bg-background px-6 py-12 lg:px-8">
-<div class="mx-auto
+<div class="mx-auto max-w-7xl flex flex-col items-center gap-4 border-b border-border pb-10 text-center">
+<p class="font-semibold uppercase tracking-widest text-foreground" data-i18n="followUs">Let's get social, connect with us.</p>
+<div class="flex items-center justify-center gap-4">
+<a href="https://www.instagram.com/skyrdy" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>
+</a>
+<a href="https://www.facebook.com/skyrdy" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.28-.04-1.25-.12-2.37-.12-2.35 0-3.95 1.43-3.95 4.06v2.35H7.6V13h2.78v8h3.12z"/></svg>
+</a>
+<a href="https://www.youtube.com/@skyrdy" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"/></svg>
+</a>
+</div>
+</div>
+<div class="mx-auto mt-8 flex max-w-7xl flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
+<p>&copy; 2026 SKYRDY™ - sky ready®. <span data-i18n="footerRights">All rights reserved.</span></p>
+<p class="uppercase tracking-widest" data-i18n="footerSub">Drone Video + Motion Lab</p>
+</div>
+</footer>
+
+<!-- Chat Agent Widget -->
+<div id="chatWidget" class="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+
+<!-- Chat window -->
+<div id="chatWindow" class="hidden w-[90vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl" style="height: min(70vh, 560px);">
+<div class="flex items-center justify-between border-b border-border bg-secondary/30 px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-accent"></span>
+<span class="font-display text-sm tracking-widest text-foreground" data-i18n="chatTitle">SKYRDY ASSISTANT</span>
+</div>
+<button id="chatCloseBtn" type="button" aria-label="Close chat" class="text-muted-foreground transition-colors hover:text-foreground">✕</button>
+</div>
+<div id="chatMessages" class="flex-1 space-y-3 overflow-y-auto px-4 py-4 text-sm"></div>
+<form id="chatForm" class="flex items-center gap-2 border-t border-border p-3">
+<input id="chatInput" type="text" autocomplete="off" data-i18n-placeholder="chatPlaceholder" placeholder="Ask about a project..." class="flex-1 rounded-full border border-border bg-secondary/20 px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none" />
+<button type="submit" aria-label="Send" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-background transition-colors hover:bg-accent/90">↑</button>
+</form>
+</div>
+
+<!-- Toggle button -->
+<button id="chatToggleBtn" type="button" aria-label="Open chat" class="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-background shadow-2xl transition-transform hover:scale-105">
+<svg id="chatIconOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+<svg id="chatIconClose" class="hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+</button>
+
+</div>
+
+</body>
+</html>
